@@ -408,9 +408,12 @@ $baseUrl = ((
             <li>Por supuesto, los cristianos están con Ricardo Arias.</li>
             <li>¿Qué tienen en común un Zorastrasista, un Fetichista y un Rastafari? Votar por Daniel Raisberck y armar unas parrandas voladoras.</li>
             <li>Así llegue en taxi a los debates, a Francisco Santos no lo quieren ni mis familiares y amigos afiliados al gremio.</li>
-            <li>Esto de estar sin trabajo me está empezando a afectar. Si siguen así las cosas, voy a terminar lanzándome a algún puesto de elección popular o aun peor, me contratan en La FM para que les amañe sus encuestas.</li>
             <li>Los más jóvenes son los que más apoyan a Clara López, un 77% de sus electores están entre los 18 y los 28 años. Así mismo los más políticamente apáticos están entre los 18 y los 23 años.</li>
             <li>Las mujeres tienen menos intención de participación en política. Las mismas son las mayores electores de candidatos como Francisco Santos y Ricardo Arias.</li>
+            <li>El tipo de sangre no determina su inclinación política, pero Francisco Santos solo prefiere a los O+.</li>
+            <li>Clara López es la preferida por los estratos 1, 2 y 3, mientras que Peñalosa tiene su nicho en los 3 y 4.</li>
+            <li>Muchos de los que no viven en Bogotá apoyan a Clara López.</li>
+            <li>Esto de estar sin trabajo me está empezando a afectar. Si siguen así las cosas, voy a terminar lanzándome a algún puesto de elección popular o aun peor, me contratan en La FM para que les amañe sus encuestas.</li>
           </ul>
         </div>
 
