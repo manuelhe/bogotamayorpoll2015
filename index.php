@@ -106,6 +106,11 @@ class FilterData
     }
     return json_encode($ret);
   }
+
+  public function getTotalVotes()
+  {
+    return $this->totalRows;
+  }
 }
 
 $parsedData = new \DataParse\FilterData();
@@ -117,11 +122,29 @@ $parsedData = new \DataParse\FilterData();
     <meta charset="utf-8">
     <title>Resultados Encuesta Voto Alcaldía de Bogotá 2015</title>
     <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="Intención de Voto Alcadía de Bogotá 2015">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Google Docs">
+    <meta property="og:url" content="https://docs.google.com/forms/d/1-oTv5ZXm_9wE5MTYDodeC73fBV1i29tcPwp7y9sMYfU/viewform?c=0&amp;w=1&amp;usp=embed_facebook">
+    <meta property="og:image" content="https://lh5.googleusercontent.com/ZIla-cOS4u5XfSLdMUjgbGmwJ1JhuUUJIYMl8BfWEI0vswBxcrgILDE4JVPWUx4Zx8s=w1200-h630-p">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:description" content="Esta es una encuesta informal sin ninguna base sólida que no intenta determinar nada, igual que las que hacen los grandes encuestadores del mundo mundial. Esta es una encuesta anónima no patrocinada por ninguna entidad, partido o candidato. Los resultados lo publicaré en algún momento cuando encuentre alguien que me ayude a sacar algún tipo de conclusión más allá de la evidente.">
+    <meta name="twitter:card" content="player">
+    <meta name="twitter:title" content="Intención de Voto Alcadía de Bogotá 2015">
+    <meta name="twitter:url" content="https://docs.google.com/forms/d/1-oTv5ZXm_9wE5MTYDodeC73fBV1i29tcPwp7y9sMYfU/viewform?c=0&amp;w=1&amp;usp=embed_twitter">
+    <meta name="twitter:image" content="https://lh5.googleusercontent.com/ZIla-cOS4u5XfSLdMUjgbGmwJ1JhuUUJIYMl8BfWEI0vswBxcrgILDE4JVPWUx4Zx8s=w435-h251-p-b1-c0x00999999">
+    <meta name="twitter:player:width" content="435">
+    <meta name="twitter:player:height" content="251">
+    <meta name="twitter:player" content="https://docs.google.com/forms/d/1-oTv5ZXm_9wE5MTYDodeC73fBV1i29tcPwp7y9sMYfU/viewform?c=0&amp;w=1&amp;embedded=true&amp;usp=embed_twitter">
+    <meta name="twitter:description" content="Esta es una encuesta informal sin ninguna base sólida que no intenta determinar nada, igual que las que hacen los grandes encuestadores del mundo mundial. Esta es una encuesta anónima no patrocinada por ninguna entidad, partido o candidato. Los resultados lo publicaré en algún momento cuando encuentre alguien que me ayude a sacar algún tipo de conclusión más allá de la evidente.">
+    <meta name="twitter:site" content="@googledocs">
+
     <style>
     *,*:before,*:after{box-sizing:border-box;}html{font-size: 100%;}body{font: 16px/1.4 Helvetica, Arial, sans-serif;margin:0;padding:0;background:#c8d3d9}h1,h2,h3,h4{margin-top:0}
     .row{display:table;width:100%}.row:before,.row:after{content:" ";display:table}.column{float:left;padding-left:.83333rem;padding-right:.83333rem;width:100%}.colspan-1{width:8.33333%}.colspan-2{width:16.66667%}.colspan-3{width:25%}.colspan-4{width:33.33333%}.colspan-5{width:41.66667%}.colspan-6{width:50%}.colspan-7{width:58.33333%}.colspan-8{width:66.66667%}.colspan-9{width:75%}.colspan-10{width:83.33333%}.colspan-11{width:91.66667%}.colspan-12{width:100%}
       .container{width:80rem;margin:0 auto;padding:2rem 1rem;border-left:1px solid #ccc;border-left:1px solid #bbb;background:#fff}
-      .navigation ul{margin:2rem 0 0;padding:0;list-style:none;background:#fff}.navigation li{display:inline-block;cursor:pointer;padding:10px 30px;color:#375DD8}.navigation li.active,.navigation li:hover{border-bottom:5px solid #FF8436}.navigation li.active{color:#789}.tab_content{border:1px solid #d5d6d9;display:none;padding:1em}.tab_content.active{display:block}
+      .navigation ul{margin:2rem 0 0;padding:0;list-style:none;background:#fff}.navigation li{display:inline-block;cursor:pointer;padding:10px 30px;color:#375DD8}.navigation li.active,.navigation li:hover{border-bottom:5px solid #FF8436}.navigation li.active{color:#789}.tab_content{border:1px solid #d5d6d9;display:none;padding:1em}.tab_content.active{display:block}.correlated-graph{padding: 2rem 0}.correlated-graph h3{margin-bottom:0.5rem;font-size:1.2rem;color:#666;text-align:center}.correlated-graph > div{margin:0 auto;width:800px}.total_votes{margin:1rem;text-align:right;color:#666}.total_votes span{font-weight:bold;color:#35b}
     </style>
 
     <!--Load the AJAX API-->
@@ -181,6 +204,44 @@ $parsedData = new \DataParse\FilterData();
           data: <?php echo $parsedData->getGoogleGraphData(11);?>
         }
       };
+      var correlatedDataSets = {
+        age: {
+          title: "Edad vs. Candidato",
+          data: <?php echo $parsedData->getCorrelatedResults(2);?>
+        },
+        sex: {
+          title: "Género vs. Candidato",
+          data: <?php echo $parsedData->getCorrelatedResults(3);?>
+        },
+        wage: {
+          title: "Ingresos vs. Candidato",
+          data: <?php echo $parsedData->getCorrelatedResults(4);?>
+        },
+        location: {
+          title: "Ubicación vs. Candidato",
+          data: <?php echo $parsedData->getCorrelatedResults(5);?>
+        },
+        stratif: {
+          title: "Estrato vs. Candidato",
+          data: <?php echo $parsedData->getCorrelatedResults(6);?>
+        },
+        religion: {
+          title: "Religión vs. Candidato",
+          data: <?php echo $parsedData->getCorrelatedResults(7);?>
+        },
+        bloodtype: {
+          title: "Tipo de Sangre vs. Candidato",
+          data: <?php echo $parsedData->getCorrelatedResults(8);?>
+        },
+        willvote: {
+          title: "Votante Activo vs. Candidato",
+          data: <?php echo $parsedData->getCorrelatedResults(9);?>
+        },
+        politicparty: {
+          title: "Militante político vs. Candidato",
+          data: <?php echo $parsedData->getCorrelatedResults(10);?>
+        }
+      };
 
       // Load the Visualization API and the piechart package.
       google.load('visualization', '1.0', {'packages':['corechart','sankey']});
@@ -197,7 +258,16 @@ $parsedData = new \DataParse\FilterData();
         drawBasicChart(basicDataSets.willvote, 'chart8_div');
         drawBasicChart(basicDataSets.politicparty, 'chart9_div');
         drawBasicChart(basicDataSets.vote, 'chart10_div');
-        drawChart2();
+
+        drawCorrelationChart(correlatedDataSets.age, 'chart11_div');
+        drawCorrelationChart(correlatedDataSets.sex, 'chart12_div');
+        drawCorrelationChart(correlatedDataSets.wage, 'chart13_div');
+        drawCorrelationChart(correlatedDataSets.location, 'chart14_div');
+        drawCorrelationChart(correlatedDataSets.stratif, 'chart15_div');
+        drawCorrelationChart(correlatedDataSets.religion, 'chart16_div');
+        drawCorrelationChart(correlatedDataSets.bloodtype, 'chart17_div');
+        drawCorrelationChart(correlatedDataSets.willvote, 'chart18_div');
+        drawCorrelationChart(correlatedDataSets.politicparty, 'chart19_div');
       });
 
       function drawBasicChart(source, elemId, chartType, settings) {
@@ -225,22 +295,24 @@ $parsedData = new \DataParse\FilterData();
         chart.draw(data, options);
       }
 
-      function drawChart2(index) {
-        var data = new google.visualization.DataTable();
+      function drawCorrelationChart(source, elemId, settings) {
+        var data = new google.visualization.DataTable(),
+          options = {
+            width: 800,
+            height: 500
+          },
+          elem = document.getElementById(elemId),
+          chart;
         data.addColumn('string', 'De');
         data.addColumn('string', 'Para');
         data.addColumn('number', 'Peso');
-        data.addRows(<?php echo $parsedData->getCorrelatedResults(10);?>);
-
-        // Set chart options
-        var options = {
-          width: 800,
-          height: 600
-        };
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.Sankey(document.getElementById('chart11_div'));
+        data.addRows(source.data);
+        if (settings) {
+          options = merge(options, settings);
+        }
+        chart = new google.visualization.Sankey(elem);
         chart.draw(data, options);
+        elem.insertAdjacentHTML('afterbegin', '<h3>' + source.title + '</h3>');
       }
       var merge = function() {
           var obj = {},
@@ -270,6 +342,7 @@ $parsedData = new \DataParse\FilterData();
       </p>
       <p>Los siguiente resultados no pueden ser tomados más que por un corto y tartamudo vaticinio.</p>
       <p>La tabla de datos puede descargarse desde el siguiente enlace: <a href="./data/data.csv" download="ResultadosVotoBogota2015.csv">Resultados Voto Bogota 2015</a></p>
+      <div class="total_votes">Total votos: <span><?php echo $parsedData->getTotalVotes()?></span></div>
 
       <div class="navigation">
         <ul>
@@ -305,7 +378,15 @@ $parsedData = new \DataParse\FilterData();
         </div>
 
         <div class="tab_content">
-          <div id="chart11_div"></div>
+          <div id="chart11_div" class="correlated-graph"></div>
+          <div id="chart12_div" class="correlated-graph"></div>
+          <div id="chart13_div" class="correlated-graph"></div>
+          <div id="chart14_div" class="correlated-graph"></div>
+          <div id="chart15_div" class="correlated-graph"></div>
+          <div id="chart16_div" class="correlated-graph"></div>
+          <div id="chart17_div" class="correlated-graph"></div>
+          <div id="chart18_div" class="correlated-graph"></div>
+          <div id="chart19_div" class="correlated-graph"></div>
         </div>
 
         <div class="tab_content">
@@ -313,7 +394,16 @@ $parsedData = new \DataParse\FilterData();
           <ul>
             <li>Tengo muy pocos amigos y soy un pésimo community manager.</li>
             <li>O existe una gran colonia rusa ortodoxa en Colombia o mucho no saben ni a que religión pertenecen.</li>
-            <li>Son los jóvenes los que más participan en redes sociales, pero los viejs son (somos) los que elegimos al final y como siempre.</li>
+            <li>Son los jóvenes los que más participan en redes sociales pero, como siempre, los viejos somos los que elegimos al final.</li>
+            <li>La candidata Clara López es la que más maquinaria política tiene detrás suyo, Casí el 40% de sus electores son militantes activos de algún grupo político, seguramente del Polo o de los Progresistas. Igual sucede con Francisco Santos, pero la muestra es muy pequeña para determinar algo.</li>
+            <li>Muchos de los votantes de Daniel Raisberck son Ateos, pero los Agnósticos están con Enrique Peñalosa.</li>
+            <li>El único Pastafarinista va a votar por Clara López. Ya sabemos con quien está el Monstruo Volador del Espagueti con Albóndigas.</li>
+            <li>Por supuesto, los cristianos están con Ricardo Arias.</li>
+            <li>¿Qué tienen en común un Zorastrasista, un Fetichista y un Rastafari? Votar por Daniel Rasiberck y armar unas parrandas voladoras.</li>
+            <li>Así llegue en taxi a los debates, a Francisco Santos no lo quieren ni mis familiares y amigos afiliados al gremio.</li>
+            <li>Esto de estar sin trabajo me está empezando a afectar. Si siguen así las cosas, voy a terminar lanzándome a algún puesto de elección popular o aun peor, me contratan en La FM para que les amañe sus encuestas.</li>
+            <li>Los más jóvenes son los que más apoyan a Clara López, un 77% de sus electores están entre los 18 y los 28 años. Así mismo los más políticamente apáticos están entre los 18 y los 23 años.</li>
+            <li>Las mujeres tienen menos intención de participación en política. Las mismas son las mayores electores de candidatos como Francisco Santos y Ricardo Arias.</li>
           </ul>
         </div>
 
