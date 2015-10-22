@@ -115,6 +115,13 @@ class FilterData
 
 $parsedData = new \DataParse\FilterData();
 
+$baseUrl = ((
+  (isset($_SERVER["HTTP_X_FORWARDED_PROTO"]) && $_SERVER["HTTP_X_FORWARDED_PROTO"] == "https") ||
+  (isset($_SERVER['HTTP_REFERER']) && strpos(strtolower($_SERVER['HTTP_REFERER']), 'https') !== FALSE ) ||
+  (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off') ||
+  (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'],'secure') !== FALSE)) ? 'https' : 'http') .
+  '://'. str_replace('//','/',$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/');
+
 ?>
 <!doctype html>
 <html>
@@ -122,23 +129,23 @@ $parsedData = new \DataParse\FilterData();
     <meta charset="utf-8">
     <title>Resultados Encuesta Voto Alcaldía de Bogotá 2015</title>
     <meta name="viewport" content="width=device-width">
-    <meta property="og:title" content="Intención de Voto Alcadía de Bogotá 2015">
+    <meta property="og:title" content="Resultados Intención de Voto Alcadía de Bogotá 2015">
     <meta property="og:type" content="article">
-    <meta property="og:site_name" content="Google Docs">
-    <meta property="og:url" content="https://docs.google.com/forms/d/1-oTv5ZXm_9wE5MTYDodeC73fBV1i29tcPwp7y9sMYfU/viewform?c=0&amp;w=1&amp;usp=embed_facebook">
-    <meta property="og:image" content="https://lh5.googleusercontent.com/ZIla-cOS4u5XfSLdMUjgbGmwJ1JhuUUJIYMl8BfWEI0vswBxcrgILDE4JVPWUx4Zx8s=w1200-h630-p">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:description" content="Esta es una encuesta informal sin ninguna base sólida que no intenta determinar nada, igual que las que hacen los grandes encuestadores del mundo mundial. Esta es una encuesta anónima no patrocinada por ninguna entidad, partido o candidato. Los resultados lo publicaré en algún momento cuando encuentre alguien que me ayude a sacar algún tipo de conclusión más allá de la evidente.">
+    <meta property="og:site_name" content="Voto Bogotá 2015">
+    <meta property="og:url" content="<?php echo $baseUrl?>">
+    <meta property="og:image" content="<?php echo $baseUrl?>/res/fb_thumb.png">
+    <meta property="og:image:width" content="1300">
+    <meta property="og:image:height" content="780">
+    <meta property="og:description" content="Esta fue una encuesta informal sin ninguna base sólida que no intentó determinar nada, igual que las que hacen los grandes encuestadores del mundo mundial. Esta fue una encuesta anónima no patrocinada por ninguna entidad, partido o candidato.">
     <meta name="twitter:card" content="player">
-    <meta name="twitter:title" content="Intención de Voto Alcadía de Bogotá 2015">
-    <meta name="twitter:url" content="https://docs.google.com/forms/d/1-oTv5ZXm_9wE5MTYDodeC73fBV1i29tcPwp7y9sMYfU/viewform?c=0&amp;w=1&amp;usp=embed_twitter">
-    <meta name="twitter:image" content="https://lh5.googleusercontent.com/ZIla-cOS4u5XfSLdMUjgbGmwJ1JhuUUJIYMl8BfWEI0vswBxcrgILDE4JVPWUx4Zx8s=w435-h251-p-b1-c0x00999999">
+    <meta name="twitter:title" content="Resultados Intención de Voto Alcadía de Bogotá 2015">
+    <meta name="twitter:url" content="<?php echo $baseUrl?>">
+    <meta name="twitter:image" content="<?php echo $baseUrl?>/res/twt_thumb.jpg">
     <meta name="twitter:player:width" content="435">
-    <meta name="twitter:player:height" content="251">
-    <meta name="twitter:player" content="https://docs.google.com/forms/d/1-oTv5ZXm_9wE5MTYDodeC73fBV1i29tcPwp7y9sMYfU/viewform?c=0&amp;w=1&amp;embedded=true&amp;usp=embed_twitter">
-    <meta name="twitter:description" content="Esta es una encuesta informal sin ninguna base sólida que no intenta determinar nada, igual que las que hacen los grandes encuestadores del mundo mundial. Esta es una encuesta anónima no patrocinada por ninguna entidad, partido o candidato. Los resultados lo publicaré en algún momento cuando encuentre alguien que me ayude a sacar algún tipo de conclusión más allá de la evidente.">
-    <meta name="twitter:site" content="@googledocs">
+    <meta name="twitter:player:height" content="261">
+    <meta name="twitter:player" content="<?php echo $baseUrl?>">
+    <meta name="twitter:description" content="Esta fue una encuesta informal sin ninguna base sólida que no intentó determinar nada, igual que las que hacen los grandes encuestadores del mundo mundial. Esta fue una encuesta anónima no patrocinada por ninguna entidad, partido o candidato.">
+    <meta name="twitter:site" content="@fractalsoftware">
 
     <style>
     *,*:before,*:after{box-sizing:border-box;}html{font-size: 100%;}body{font: 16px/1.4 Helvetica, Arial, sans-serif;margin:0;padding:0;background:#c8d3d9}h1,h2,h3,h4{margin-top:0}
@@ -393,13 +400,13 @@ $parsedData = new \DataParse\FilterData();
           <h2>Algunas conclusiones obias y otras no tanto</h2>
           <ul>
             <li>Tengo muy pocos amigos y soy un pésimo community manager.</li>
-            <li>O existe una gran colonia rusa ortodoxa en Colombia o mucho no saben ni a que religión pertenecen.</li>
+            <li>O existe una gran colonia rusa ortodoxa en Colombia o muchos no saben ni a que religión pertenecen.</li>
             <li>Son los jóvenes los que más participan en redes sociales pero, como siempre, los viejos somos los que elegimos al final.</li>
             <li>La candidata Clara López es la que más maquinaria política tiene detrás suyo, Casí el 40% de sus electores son militantes activos de algún grupo político, seguramente del Polo o de los Progresistas. Igual sucede con Francisco Santos, pero la muestra es muy pequeña para determinar algo.</li>
             <li>Muchos de los votantes de Daniel Raisberck son Ateos, pero los Agnósticos están con Enrique Peñalosa.</li>
             <li>El único Pastafarinista va a votar por Clara López. Ya sabemos con quien está el Monstruo Volador del Espagueti con Albóndigas.</li>
             <li>Por supuesto, los cristianos están con Ricardo Arias.</li>
-            <li>¿Qué tienen en común un Zorastrasista, un Fetichista y un Rastafari? Votar por Daniel Rasiberck y armar unas parrandas voladoras.</li>
+            <li>¿Qué tienen en común un Zorastrasista, un Fetichista y un Rastafari? Votar por Daniel Raisberck y armar unas parrandas voladoras.</li>
             <li>Así llegue en taxi a los debates, a Francisco Santos no lo quieren ni mis familiares y amigos afiliados al gremio.</li>
             <li>Esto de estar sin trabajo me está empezando a afectar. Si siguen así las cosas, voy a terminar lanzándome a algún puesto de elección popular o aun peor, me contratan en La FM para que les amañe sus encuestas.</li>
             <li>Los más jóvenes son los que más apoyan a Clara López, un 77% de sus electores están entre los 18 y los 28 años. Así mismo los más políticamente apáticos están entre los 18 y los 23 años.</li>
