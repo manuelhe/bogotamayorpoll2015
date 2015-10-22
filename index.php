@@ -151,7 +151,7 @@ $baseUrl = ((
     *,*:before,*:after{box-sizing:border-box;}html{font-size: 100%;}body{font: 16px/1.4 Helvetica, Arial, sans-serif;margin:0;padding:0;background:#c8d3d9}h1,h2,h3,h4{margin-top:0}
     .row{display:table;width:100%}.row:before,.row:after{content:" ";display:table}.column{float:left;padding-left:.83333rem;padding-right:.83333rem;width:100%}.colspan-1{width:8.33333%}.colspan-2{width:16.66667%}.colspan-3{width:25%}.colspan-4{width:33.33333%}.colspan-5{width:41.66667%}.colspan-6{width:50%}.colspan-7{width:58.33333%}.colspan-8{width:66.66667%}.colspan-9{width:75%}.colspan-10{width:83.33333%}.colspan-11{width:91.66667%}.colspan-12{width:100%}
       .container{width:80rem;margin:0 auto;padding:2rem 1rem;border-left:1px solid #ccc;border-left:1px solid #bbb;background:#fff}
-      .navigation ul{margin:2rem 0 0;padding:0;list-style:none;background:#fff}.navigation li{display:inline-block;cursor:pointer;padding:10px 30px;color:#375DD8}.navigation li.active,.navigation li:hover{border-bottom:5px solid #FF8436}.navigation li.active{color:#789}.tab_content{border:1px solid #d5d6d9;display:none;padding:1em}.tab_content.active{display:block}.correlated-graph{padding: 2rem 0}.correlated-graph h3{margin-bottom:0.5rem;font-size:1.2rem;color:#666;text-align:center}.correlated-graph > div{margin:0 auto;width:800px}.total_votes{margin:1rem;text-align:right;color:#666}.total_votes span{font-weight:bold;color:#35b}
+      .navigation ul{margin:2rem 0 0;padding:0;list-style:none;background:#fff}.navigation li{display:inline-block;cursor:pointer;padding:10px 30px;color:#375DD8}.navigation li.active,.navigation li:hover{border-bottom:5px solid #FF8436}.navigation li.active{color:#789}.tab_content{border:1px solid #d5d6d9;display:none;padding:1em}.tab_content.active{display:block}.correlated-graph{padding: 2rem 0}.correlated-graph h3{margin-bottom:0.5rem;font-size:1.2rem;color:#666;text-align:center}.correlated-graph > div{margin:0 auto;width:800px}.total_votes{margin:1rem;text-align:right;color:#666}.total_votes span{font-weight:bold;color:#35b}.right{text-align: right}footer{margin:1rem 0 0;color:#666;padding:1rem 0 0}footer a{color:#37a;text-decoration:none}p{font-size:0.9rem}
     </style>
 
     <!--Load the AJAX API-->
@@ -347,8 +347,8 @@ $baseUrl = ((
       <p>
         Esta fue una encuesta informal sin ninguna base sólida que no intentó determinar nada, igual que las que hacen los grandes encuestadores del mundo mundial. Esta fue una encuesta anónima no patrocinada por ninguna entidad, partido o candidato.
       </p>
-      <p>Los siguiente resultados no pueden ser tomados más que por un corto y tartamudo vaticinio.</p>
-      <p>La tabla de datos puede descargarse desde el siguiente enlace: <a href="./data/data.csv" download="ResultadosVotoBogota2015.csv">Resultados Voto Bogota 2015</a></p>
+      <p>La tabla de datos puede descargarse desde el siguiente enlace: <a href="./data/data.csv" download="ResultadosVotoBogota2015.csv">Resultados Voto Bogota 2015</a>. El formulario de la encuesta se encuentra aquí: <a href="https://goo.gl/forms/0MNzdkP6cg">Intención de Voto Alcaldía de Bogotá 2015</a></p>
+      <p>ADVERTENCIA: Los siguiente resultados no pueden ser tomados más que por un corto, claramente sesgado e inutil vaticinio de lo que nos puede esperar.</p>
       <div class="total_votes">Total votos: <span><?php echo $parsedData->getTotalVotes()?></span></div>
 
       <div class="navigation">
@@ -415,6 +415,22 @@ $baseUrl = ((
         </div>
 
       </div>
+
+      <footer>
+        <div class="row">
+          <div class="column colspan-9">
+            <a href="https://github.com/manuelhe/bogotamayorpoll2015" target="_blank">GitHub</a>
+            |
+            <a href="https://www.facebook.com/votobogota2015">Facebook</a>
+            |
+            Hecho por <a href="https://twitter.com/fractalsoftware">@fractalsoftware</a>
+          </div>
+          <div class="column colspan-3 right">
+            <a rel="license" href="//creativecommons.org/licenses/by/4.0/" title="Creative Commons Attribution 4.0 International license" target="_blank"><img src="//i.creativecommons.org/l/by/4.0/88x31.png" alt="License"></a>
+          </div>
+        </div>
+
+      </footer>
 
     </div>
   </body>
