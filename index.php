@@ -407,7 +407,7 @@ $baseUrl = ((
         </div>
 
         <div class="tab_content">
-          <h2>Algunas conclusiones obias y otras no tanto</h2>
+          <h2>Algunas conclusiones obvias y otras no tanto</h2>
           <ul>
             <li>Tengo muy pocos amigos y soy un pésimo community manager.</li>
             <li>O existe una gran colonia rusa ortodoxa en Colombia o muchos no saben ni a que religión pertenecen.</li>
