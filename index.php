@@ -153,7 +153,6 @@ $config = parse_ini_file($baseDir.'config/config.ini');
     <meta name="twitter:description" content="<?php echo $config['smDescription'];?>">
     <meta name="twitter:site" content="<?php echo $config['twitter']['site'];?>">
     <meta name="twitter:creator" content="<?php echo $config['twitter']['creator'];?>">
-1200 x 630
     <style>
     *,*:before,*:after{box-sizing:border-box;}html{font-size: 100%;}body{font: 16px/1.4 Helvetica, Arial, sans-serif;margin:0;padding:0;background:#c8d3d9}h1,h2,h3,h4{margin-top:0}
     .row{display:table;width:100%}.row:before,.row:after{content:" ";display:table}.column{float:left;padding-left:.83333rem;padding-right:.83333rem;width:100%}.colspan-1{width:8.33333%}.colspan-2{width:16.66667%}.colspan-3{width:25%}.colspan-4{width:33.33333%}.colspan-5{width:41.66667%}.colspan-6{width:50%}.colspan-7{width:58.33333%}.colspan-8{width:66.66667%}.colspan-9{width:75%}.colspan-10{width:83.33333%}.colspan-11{width:91.66667%}.colspan-12{width:100%}
