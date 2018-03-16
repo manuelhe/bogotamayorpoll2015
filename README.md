@@ -1,4 +1,4 @@
-# Bogotá Mayor 2015 Poll
+#Poll results consolidation page
 
 Just a simple application to show the results with graphs.
 
@@ -11,4 +11,4 @@ Initially I wanted to get connected with the Google Apps API to get the results 
 
 ## Rants
 
-I know. Everything in just one file? That's awful, but who cares. A PHP class, the HTML template, the Javascript application, the styles. Oh my! Someone will hit me in the head with a bat for this thing.
+I know. Everything in just one file? That's awful but, who cares?. A PHP class, the HTML template, the Javascript application, the styles.
