@@ -2,13 +2,12 @@
 
 error_reporting(E_ALL);
 
-
 class FilterData
 {
   private $totalRows;
   private $data;
   private $dataDesc;
-  const VOTE_INDEX = 11;
+  const VOTE_INDEX = 10;
 
   public function __construct()
   {
@@ -24,6 +23,11 @@ class FilterData
       while (($row = fgetcsv($handle, 1000, ",")) !== false) {
         $count++;
         if ($count < 2) {
+          continue;
+        }
+        // If user doesn't accept terms and conditions,
+        // remove answer from reults
+        if ($row[1] === 'No') {
           continue;
         }
         $num = count($row);
@@ -122,14 +126,19 @@ $baseUrl = ((
   (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'],'secure') !== FALSE)) ? 'https' : 'http') .
   '://'. str_replace('//','/',$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/');
 
+$baseDir = realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR;
+
+//Config file parsing
+$config = parse_ini_file($baseDir.'config/config.ini');
+
 ?>
 <!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Resultados Encuesta Voto Alcaldía de Bogotá 2015</title>
+    <title><?php echo $config['siteTitle'];?></title>
     <meta name="viewport" content="width=device-width">
-    <meta property="og:title" content="Resultados Intención de Voto Alcadía de Bogotá 2015">
+    <meta property="og:title" content="<?php echo $config['siteTitle'];?>">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Voto Bogotá 2015">
     <meta property="og:url" content="<?php echo $baseUrl?>">
@@ -138,7 +147,7 @@ $baseUrl = ((
     <meta property="og:image:height" content="780">
     <meta property="og:description" content="Esta fue una encuesta informal sin ninguna base sólida que no intentó determinar nada, igual que las que hacen los grandes encuestadores del mundo mundial. Esta fue una encuesta anónima no patrocinada por ninguna entidad, partido o candidato.">
     <meta name="twitter:card" content="player">
-    <meta name="twitter:title" content="Resultados Intención de Voto Alcadía de Bogotá 2015">
+    <meta name="twitter:title" content="<?php echo $config['siteTitle'];?>">
     <meta name="twitter:url" content="<?php echo $baseUrl?>">
     <meta name="twitter:image" content="<?php echo $baseUrl?>/res/twt_thumb.jpg">
     <meta name="twitter:player:width" content="435">
@@ -178,37 +187,37 @@ $baseUrl = ((
         location: {
           title: "Lugar de Residencia",
           columns: ['Ubicación','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(5);?>
+          data: <?php echo $parsedData->getGoogleGraphData(11);?>
         },
         stratif: {
           title: "Estrato",
           columns: ['Estrato','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(6);?>
+          data: <?php echo $parsedData->getGoogleGraphData(5);?>
         },
         religion: {
           title: "Creencia religiosa",
           columns: ['Religión','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(7);?>
+          data: <?php echo $parsedData->getGoogleGraphData(6);?>
         },
         bloodtype: {
           title: "Tipo de Sangre",
           columns: ['Tipo de Sangre','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(8);?>
+          data: <?php echo $parsedData->getGoogleGraphData(7);?>
         },
         willvote: {
           title: "Va a votar en las próximas elecciones",
           columns: ['Votante activo','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(9);?>
+          data: <?php echo $parsedData->getGoogleGraphData(8);?>
         },
         politicparty: {
           title: "Pertenece a un grupo político",
           columns: ['Militante','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(10);?>
+          data: <?php echo $parsedData->getGoogleGraphData(9);?>
         },
         vote: {
           title: "Votos por Candidato",
           columns: ['Candidato','Votos'],
-          data: <?php echo $parsedData->getGoogleGraphData(11);?>
+          data: <?php echo $parsedData->getGoogleGraphData(10);?>
         }
       };
       var correlatedDataSets = {
@@ -226,27 +235,27 @@ $baseUrl = ((
         },
         location: {
           title: "Ubicación vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(5);?>
+          data: <?php echo $parsedData->getCorrelatedResults(11);?>
         },
         stratif: {
           title: "Estrato vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(6);?>
+          data: <?php echo $parsedData->getCorrelatedResults(5);?>
         },
         religion: {
           title: "Religión vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(7);?>
+          data: <?php echo $parsedData->getCorrelatedResults(6);?>
         },
         bloodtype: {
           title: "Tipo de Sangre vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(8);?>
+          data: <?php echo $parsedData->getCorrelatedResults(7);?>
         },
         willvote: {
           title: "Votante Activo vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(9);?>
+          data: <?php echo $parsedData->getCorrelatedResults(8);?>
         },
         politicparty: {
           title: "Militante político vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(10);?>
+          data: <?php echo $parsedData->getCorrelatedResults(9);?>
         }
       };
 
@@ -352,21 +361,22 @@ $baseUrl = ((
   <body>
     <div class="container">
       <!--Div that will hold the pie chart-->
-      <h1>Resultados Intención de Voto Alcaldía de Bogotá 2015</h1>
+      <h1><?php echo $config['siteTitle'];?></h1>
 
-      <p>
-        Esta fue una encuesta informal sin ninguna base sólida que no intentó determinar nada, igual que las que hacen los grandes encuestadores del mundo mundial. Esta fue una encuesta anónima no patrocinada por ninguna entidad, partido o candidato.
-      </p>
-      <p>La tabla de datos puede descargarse desde el siguiente enlace: <a href="./data/data.csv" download="ResultadosVotoBogota2015.csv">Resultados Voto Bogota 2015</a>. El formulario de la encuesta se encuentra aquí: <a href="https://goo.gl/forms/0MNzdkP6cg">Intención de Voto Alcaldía de Bogotá 2015</a></p>
-      <p>ADVERTENCIA: Los siguiente resultados no pueden ser tomados más que por un corto, claramente sesgado e inutil vaticinio de lo que nos puede esperar.</p>
+      <div><?php echo $config['siteIntro'];?></div>
+
       <div class="total_votes">Total votos: <span><?php echo $parsedData->getTotalVotes()?></span></div>
 
       <div class="navigation">
+
         <ul>
           <li class="active">Resultados Generales</li>
           <li class="">Resultados Correlacionados</li>
+<?php if ($config['conclusions']['enabled']):?>
           <li class="">Algunas Conclusiones</li>
+<?php endif;?>
         </ul>
+
       </div>
 
       <div id="content_tabs">
@@ -405,28 +415,12 @@ $baseUrl = ((
           <div id="chart18_div" class="correlated-graph"></div>
           <div id="chart19_div" class="correlated-graph"></div>
         </div>
-
+<?php if ($config['conclusions']['enabled']):?>
         <div class="tab_content">
-          <h2>Algunas conclusiones obvias y otras no tanto</h2>
-          <ul>
-            <li>Tengo muy pocos amigos y soy un pésimo community manager.</li>
-            <li>O existe una gran colonia rusa ortodoxa en Colombia o muchos no saben ni a que religión pertenecen.</li>
-            <li>Son los jóvenes los que más participan en redes sociales pero, como siempre, los viejos somos los que elegimos al final.</li>
-            <li>La candidata Clara López es la que más maquinaria política tiene detrás suyo, Casí el 40% de sus electores son militantes activos de algún grupo político, seguramente del Polo o de los Progresistas. Igual sucede con Francisco Santos, pero la muestra es muy pequeña para determinar algo.</li>
-            <li>Muchos de los votantes de Daniel Raisberck son Ateos, pero los Agnósticos están con Enrique Peñalosa.</li>
-            <li>El único Pastafarinista va a votar por Clara López. Ya sabemos con quien está el Monstruo Volador del Espagueti con Albóndigas.</li>
-            <li>Por supuesto, los cristianos están con Ricardo Arias.</li>
-            <li>¿Qué tienen en común un Zorastrasista, un Fetichista y un Rastafari? Votar por Daniel Raisberck y armar unas parrandas voladoras.</li>
-            <li>Así llegue en taxi a los debates, a Francisco Santos no lo quieren ni mis familiares y amigos afiliados al gremio.</li>
-            <li>Los más jóvenes son los que más apoyan a Clara López, un 77% de sus electores están entre los 18 y los 28 años. Así mismo los más políticamente apáticos están entre los 18 y los 23 años.</li>
-            <li>Las mujeres tienen menos intención de participación en política. Las mismas son las mayores electores de candidatos como Francisco Santos y Ricardo Arias.</li>
-            <li>El tipo de sangre no determina su inclinación política, pero Francisco Santos solo prefiere a los O+.</li>
-            <li>Clara López es la preferida por los estratos 1, 2 y 3, mientras que Peñalosa tiene su nicho en los 3 y 4.</li>
-            <li>Muchos de los que no viven en Bogotá apoyan a Clara López.</li>
-            <li>Esto de estar sin trabajo me está empezando a afectar. Si siguen así las cosas, voy a terminar lanzándome a algún puesto de elección popular o aun peor, me contratan en La FM para que les amañe sus encuestas.</li>
-          </ul>
+          <h2><?php echo $config['conclusions']['title'];?></h2>
+          <?php echo $config['conclusions']['body'];?>
         </div>
-
+<?php endif;?>
       </div>
 
       <footer>
@@ -434,7 +428,7 @@ $baseUrl = ((
           <div class="column colspan-9">
             <a href="https://github.com/manuelhe/bogotamayorpoll2015" target="_blank">GitHub</a>
             |
-            <a href="https://www.facebook.com/votobogota2015">Facebook</a>
+            <a href="<?php echo $config['facebookUrl'];?>">Facebook</a>
             |
             Hecho por <a href="https://twitter.com/fractalsoftware">@fractalsoftware</a>
           </div>
