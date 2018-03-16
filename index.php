@@ -431,6 +431,8 @@ $config = parse_ini_file($baseDir.'config/config.ini');
             <a href="<?php echo $config['facebookUrl'];?>">Facebook</a>
             |
             Hecho por <a href="https://twitter.com/fractalsoftware">@fractalsoftware</a>
+            |
+            Versión: <?php echo $config['appVersion'];?>
           </div>
           <div class="column colspan-3 right">
             <a rel="license" href="//creativecommons.org/licenses/by/4.0/" title="Creative Commons Attribution 4.0 International license" target="_blank"><img src="//i.creativecommons.org/l/by/4.0/88x31.png" alt="License"></a>
