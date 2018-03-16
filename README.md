@@ -1,4 +1,4 @@
-#Poll results consolidation page
+# Poll results consolidation page
 
 Just a simple application to show the results with graphs.
 
