@@ -7,12 +7,18 @@ class FilterData
   private $totalRows;
   private $data;
   private $dataDesc;
+  private $minDate = 0;
+  private $maxDate = 0;
+  private $filterParams = [];
+  private $lastDataUpdate = 0;
   const VOTE_INDEX = 10;
+  const DATE_INDEX = 0;
 
-  public function __construct()
+  public function __construct($filterParams = [])
   {
     $this->dataDesc = array_fill(0, 12, []);
     $this->data = [];
+    $this->filterParams = $filterParams;
     $this->getData();
   }
 
@@ -20,6 +26,9 @@ class FilterData
   {
     $count = 0;
     if (($handle = fopen("data/data.csv", "r")) !== false) {
+
+      $this->lastDataUpdate = filectime("data/data.csv");
+
       while (($row = fgetcsv($handle, 1000, ",")) !== false) {
         $count++;
         if ($count < 2) {
@@ -36,9 +45,14 @@ class FilterData
           if ($c > 0 && !in_array($row[$c], $this->dataDesc[$c])) {
             $this->dataDesc[$c][] = $row[$c];
           }
-          $rowData[$c] = $c > 0 ?
+          $rowData[$c] = $c !== self::DATE_INDEX ?
             array_search($row[$c], $this->dataDesc[$c]) :
             strtotime($row[$c]);
+
+          if ($c === self::DATE_INDEX) {
+          	$this->minDate = !$this->minDate || $this->minDate > $rowData[$c] ? $rowData[$c] : $this->minDate;
+          	$this->maxDate = !$this->maxDate || $this->maxDate < $rowData[$c] ? $rowData[$c] : $this->maxDate;
+          }
         }
         $this->data[] = $rowData;
       }
@@ -115,9 +129,26 @@ class FilterData
   {
     return $this->totalRows;
   }
+
+  public function getMinDate($format = 'Y-m-d')
+  {
+  	return date($format, $this->minDate);
+  }
+
+  public function getMaxDate($format = 'Y-m-d')
+  {
+  	return date($format, $this->maxDate);
+  }
+
+  public function getLastUpdate($format = 'Y-m-d H:i:s')
+  {
+  	return date($format, $this->lastDataUpdate);
+  }
 }
 
-$parsedData = new \DataParse\FilterData();
+$params = isset($_POST) && $_POST ? $_POST : false;
+
+$parsedData = new \DataParse\FilterData($params);
 
 $baseUrl = ((
   (isset($_SERVER["HTTP_X_FORWARDED_PROTO"]) && $_SERVER["HTTP_X_FORWARDED_PROTO"] == "https") ||
@@ -157,7 +188,23 @@ $config = parse_ini_file($baseDir.'config/config.ini');
     *,*:before,*:after{box-sizing:border-box;}html{font-size: 100%;}body{font: 16px/1.4 Helvetica, Arial, sans-serif;margin:0;padding:0;background:#c8d3d9}h1,h2,h3,h4{margin-top:0}
     .row{display:table;width:100%}.row:before,.row:after{content:" ";display:table}.column{float:left;padding-left:.83333rem;padding-right:.83333rem;width:100%}.colspan-1{width:8.33333%}.colspan-2{width:16.66667%}.colspan-3{width:25%}.colspan-4{width:33.33333%}.colspan-5{width:41.66667%}.colspan-6{width:50%}.colspan-7{width:58.33333%}.colspan-8{width:66.66667%}.colspan-9{width:75%}.colspan-10{width:83.33333%}.colspan-11{width:91.66667%}.colspan-12{width:100%}
       .container{width:80rem;margin:0 auto;padding:2rem 1rem;border-left:1px solid #ccc;border-left:1px solid #bbb;background:#fff}
-      .navigation ul{margin:2rem 0 0;padding:0;list-style:none;background:#fff}.navigation li{display:inline-block;cursor:pointer;padding:10px 30px;color:#375DD8}.navigation li.active,.navigation li:hover{border-bottom:5px solid #FF8436}.navigation li.active{color:#789}.tab_content{border:1px solid #d5d6d9;display:none;padding:1em}.tab_content.active{display:block}.correlated-graph{padding: 2rem 0}.correlated-graph h3{margin-bottom:0.5rem;font-size:1.2rem;color:#666;text-align:center}.correlated-graph > div{margin:0 auto;width:800px}.total_votes{margin:1rem;text-align:right;color:#666}.total_votes span{font-weight:bold;color:#35b}.right{text-align: right}footer{margin:1rem 0 0;color:#666;padding:1rem 0 0}footer a{color:#37a;text-decoration:none}p{font-size:0.9rem}
+      .navigation ul{margin:2rem 0 0;padding:0;list-style:none;background:#fff}.navigation li{display:inline-block;cursor:pointer;padding:10px 30px;color:#375DD8}.navigation li.active,.navigation li:hover{border-bottom:5px solid #FF8436}.navigation li.active{color:#789}.tab_content{border:1px solid #d5d6d9;display:none;padding:1em}.tab_content.active{display:block}.correlated-graph{padding: 2rem 0}.correlated-graph h3{margin-bottom:0.5rem;font-size:1.2rem;color:#666;text-align:center}.correlated-graph > div{margin:0 auto;width:800px}.total_votes{margin:1rem;text-align:right;color:#666}.total_votes span{font-weight:bold;color:#35b}.last_update{margin:1rem;font-size:0.8em;text-align:right;color:#666}.last_update span{font-weight:bold;color:#35b}.right{text-align: right}footer{margin:1rem 0 0;color:#666;padding:1rem 0 0}footer a{color:#37a;text-decoration:none}p{font-size:0.9rem}
+input:invalid + span {
+  position: relative;
+}
+input:invalid + span:after {
+  content: '✖';
+  position: absolute;
+  right: -18px;
+}
+input:valid + span {
+  position: relative;
+}
+input:valid + span:after {
+  content: '✓';
+  position: absolute;
+  right: -18px;
+}
     </style>
 
     <!--Load the AJAX API-->
@@ -264,7 +311,7 @@ $config = parse_ini_file($baseDir.'config/config.ini');
         drawBasicChart(basicDataSets.age, 'chart1_div', 'BarChart');
         drawBasicChart(basicDataSets.sex, 'chart2_div');
         drawBasicChart(basicDataSets.wage, 'chart3_div');
-        drawBasicChart(basicDataSets.location, 'chart4_div', 'BarChart');
+        drawBasicChart(basicDataSets.location, 'chart4_div', 'BarChart', {'height':500});
         drawBasicChart(basicDataSets.stratif, 'chart5_div');
         drawBasicChart(basicDataSets.religion, 'chart6_div', 'BarChart', {'height':500});
         drawBasicChart(basicDataSets.bloodtype, 'chart7_div');
@@ -361,6 +408,38 @@ $config = parse_ini_file($baseDir.'config/config.ini');
       <div><?php echo $config['siteIntro'];?></div>
 
       <div class="total_votes">Total votos: <span><?php echo $parsedData->getTotalVotes()?></span></div>
+      <div class="last_update">Última actualización: <span><?php echo $parsedData->getLastUpdate()?></span></div>
+
+<?php if ($config['conclusions']['enabled']):?>
+      <!-- Filters -->
+      <form id="filters" action="./" method="post">
+      	<div class="dates">
+				  <div>
+				    <label for="date_init">Fecha Inicio:</label>
+				    <input type="date" id="date_init" name="date_init" 
+				    	   min="<?php echo $parsedData->getMinDate();?>" 
+				    	   max="<?php echo $parsedData->getMaxDate();?>"
+				    	   value="<?php echo $parsedData->getMinDate();?>"
+				    	   required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+				    <span class="validity"></span>
+				  </div>
+				  <div>
+				    <label for="date_end">Fecha Fin:</label>
+				    <input type="date" id="date_end" name="date_end" 
+				    	   min="<?php echo $parsedData->getMinDate();?>" 
+				    	   max="<?php echo $parsedData->getMaxDate();?>"
+				    	   value="<?php echo $parsedData->getMaxDate();?>"
+				    	   required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+				    <span class="validity"></span>
+				  </div>
+
+      	</div>
+      	<div>
+      		<button type="submit">Filtrar</button>
+				</div>
+
+      </form>
+<?php endif;?>
 
       <div class="navigation">
 
@@ -439,7 +518,9 @@ $config = parse_ini_file($baseDir.'config/config.ini');
     </div>
   </body>
   <script>
-    var tabLinks = document.querySelectorAll('.navigation li');
+(function (document){
+  //Tabs
+  var tabLinks = document.querySelectorAll('.navigation li');
     var tabContent = document.querySelectorAll('#content_tabs .tab_content');
     Array.prototype.forEach.call(tabLinks, function(el, i){
       el.addEventListener('click', function(event) {
@@ -450,7 +531,22 @@ $config = parse_ini_file($baseDir.'config/config.ini');
           el2.className = (i === i2) ? 'tab_content active' : 'tab_content';
         });
       });
-    });
+  });
+
+  //Date inputs dynamic range adjusts
+  let dateInitInput = document.getElementById('date_init');
+  let dateEndInput = document.getElementById('date_end');
+  if (dateInitInput && dateEndInput) {
+  	dateInitInput.addEventListener('change', () => {
+	  	dateEndInput.min = dateInitInput.value;
+	  });
+	  dateEndInput.addEventListener('change', () => {
+	  	dateInitInput.max = dateEndInput.value;
+	  });	
+  }
+
+}(document));
+ 
   </script>
 
 </html>
