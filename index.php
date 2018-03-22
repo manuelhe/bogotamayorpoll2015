@@ -1,150 +1,8 @@
-<?php namespace DataParse;
-
+<?php
+$script_start_time = microtime(true);
 error_reporting(E_ALL);
 
-class FilterData
-{
-  private $totalRows;
-  private $data;
-  private $dataDesc;
-  private $minDate = 0;
-  private $maxDate = 0;
-  private $filterParams = [];
-  private $lastDataUpdate = 0;
-  const VOTE_INDEX = 10;
-  const DATE_INDEX = 0;
-
-  public function __construct($filterParams = [])
-  {
-    $this->dataDesc = array_fill(0, 12, []);
-    $this->data = [];
-    $this->filterParams = $filterParams;
-    $this->getData();
-  }
-
-  private function getData()
-  {
-    $count = 0;
-    if (($handle = fopen("data/data.csv", "r")) !== false) {
-
-      $this->lastDataUpdate = filectime("data/data.csv");
-
-      while (($row = fgetcsv($handle, 1000, ",")) !== false) {
-        $count++;
-        if ($count < 2) {
-          continue;
-        }
-        // If user doesn't accept terms and conditions,
-        // remove answer from reults
-        if ($row[1] === 'No') {
-          continue;
-        }
-        $num = count($row);
-        $rowData = [];
-        for ($c = 0; $c < $num; $c++) {
-          if ($c > 0 && !in_array($row[$c], $this->dataDesc[$c])) {
-            $this->dataDesc[$c][] = $row[$c];
-          }
-          $rowData[$c] = $c !== self::DATE_INDEX ?
-            array_search($row[$c], $this->dataDesc[$c]) :
-            strtotime($row[$c]);
-
-          if ($c === self::DATE_INDEX) {
-          	$this->minDate = !$this->minDate || $this->minDate > $rowData[$c] ? $rowData[$c] : $this->minDate;
-          	$this->maxDate = !$this->maxDate || $this->maxDate < $rowData[$c] ? $rowData[$c] : $this->maxDate;
-          }
-        }
-        $this->data[] = $rowData;
-      }
-      fclose($handle);
-    }
-    $this->totalRows = count($this->data);
-  }
-
-  public function getResultsFrom($index)
-  {
-    if (!isset($this->dataDesc[$index])) {
-      return false;
-    }
-
-    $ret = [];
-
-    //Data filtering
-    foreach ($this->data as $v) {
-      $idx = $v[$index];
-      if (!isset($ret[$idx])) {
-        $ret[$idx] = [
-          'value'   => $this->dataDesc[$index][$idx],
-          'total'   => 0,
-          'percent' => 0
-        ];
-      }
-      $ret[$v[$index]]['total']++;
-    }
-
-    //Get Percent values
-    foreach ($ret as $k => $v) {
-      $ret[$k]['percent'] = 100 * $v['total'] / $this->totalRows;
-    }
-
-    //Sort results
-    foreach ($ret as $key => $row) {
-      $total[$key]  = $row['total'];
-    }
-    array_multisort($total, SORT_DESC, $ret);
-
-    return $ret;
-  }
-
-  public function getCorrelatedResults($index)
-  {
-    self::VOTE_INDEX;
-    $ret = [];
-    foreach ($this->data as $v) {
-      $idx = $v[$index] . '-' . $v[self::VOTE_INDEX];
-      if (!isset($ret[$idx])) {
-        $ret[$idx] = [
-          $this->dataDesc[$index][$v[$index]],
-          $this->dataDesc[self::VOTE_INDEX][$v[self::VOTE_INDEX]],
-          0
-        ];
-      }
-      $ret[$idx][2]++;
-    }
-    return json_encode(array_values($ret));
-  }
-
-  public function getGoogleGraphData($index)
-  {
-    $data = $this->getResultsFrom($index);
-
-    $ret = [];
-    foreach ($data as $v) {
-      $ret[] = [$v['value'], $v['total']];
-    }
-    return json_encode($ret);
-  }
-
-  public function getTotalVotes()
-  {
-    return $this->totalRows;
-  }
-
-  public function getMinDate($format = 'Y-m-d')
-  {
-  	return date($format, $this->minDate);
-  }
-
-  public function getMaxDate($format = 'Y-m-d')
-  {
-  	return date($format, $this->maxDate);
-  }
-
-  public function getLastUpdate($format = 'Y-m-d H:i:s')
-  {
-  	return date($format, $this->lastDataUpdate);
-  }
-}
+require('./app/DataParse/FilterData.php');
 
 $params = isset($_POST) && $_POST ? $_POST : false;
 
@@ -184,28 +42,7 @@ $config = parse_ini_file($baseDir.'config/config.ini');
     <meta name="twitter:description" content="<?php echo $config['smDescription'];?>">
     <meta name="twitter:site" content="<?php echo $config['twitter']['site'];?>">
     <meta name="twitter:creator" content="<?php echo $config['twitter']['creator'];?>">
-    <style>
-    *,*:before,*:after{box-sizing:border-box;}html{font-size: 100%;}body{font: 16px/1.4 Helvetica, Arial, sans-serif;margin:0;padding:0;background:#c8d3d9}h1,h2,h3,h4{margin-top:0}
-    .row{display:table;width:100%}.row:before,.row:after{content:" ";display:table}.column{float:left;padding-left:.83333rem;padding-right:.83333rem;width:100%}.colspan-1{width:8.33333%}.colspan-2{width:16.66667%}.colspan-3{width:25%}.colspan-4{width:33.33333%}.colspan-5{width:41.66667%}.colspan-6{width:50%}.colspan-7{width:58.33333%}.colspan-8{width:66.66667%}.colspan-9{width:75%}.colspan-10{width:83.33333%}.colspan-11{width:91.66667%}.colspan-12{width:100%}
-      .container{width:80rem;margin:0 auto;padding:2rem 1rem;border-left:1px solid #ccc;border-left:1px solid #bbb;background:#fff}
-      .navigation ul{margin:2rem 0 0;padding:0;list-style:none;background:#fff}.navigation li{display:inline-block;cursor:pointer;padding:10px 30px;color:#375DD8}.navigation li.active,.navigation li:hover{border-bottom:5px solid #FF8436}.navigation li.active{color:#789}.tab_content{border:1px solid #d5d6d9;display:none;padding:1em}.tab_content.active{display:block}.correlated-graph{padding: 2rem 0}.correlated-graph h3{margin-bottom:0.5rem;font-size:1.2rem;color:#666;text-align:center}.correlated-graph > div{margin:0 auto;width:800px}.total_votes{margin:1rem;text-align:right;color:#666}.total_votes span{font-weight:bold;color:#35b}.last_update{margin:1rem;font-size:0.8em;text-align:right;color:#666}.last_update span{font-weight:bold;color:#35b}.right{text-align: right}footer{margin:1rem 0 0;color:#666;padding:1rem 0 0}footer a{color:#37a;text-decoration:none}p{font-size:0.9rem}
-input:invalid + span {
-  position: relative;
-}
-input:invalid + span:after {
-  content: '✖';
-  position: absolute;
-  right: -18px;
-}
-input:valid + span {
-  position: relative;
-}
-input:valid + span:after {
-  content: '✓';
-  position: absolute;
-  right: -18px;
-}
-    </style>
+    <link rel="stylesheet" type="text/css" href="./assets/style.css">
 
     <!--Load the AJAX API-->
 
@@ -302,93 +139,6 @@ input:valid + span:after {
           data: <?php echo $parsedData->getCorrelatedResults(9);?>
         }
       };
-
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart','sankey']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(function () {
-        drawBasicChart(basicDataSets.age, 'chart1_div', 'BarChart');
-        drawBasicChart(basicDataSets.sex, 'chart2_div');
-        drawBasicChart(basicDataSets.wage, 'chart3_div');
-        drawBasicChart(basicDataSets.location, 'chart4_div', 'BarChart', {'height':500});
-        drawBasicChart(basicDataSets.stratif, 'chart5_div');
-        drawBasicChart(basicDataSets.religion, 'chart6_div', 'BarChart', {'height':500});
-        drawBasicChart(basicDataSets.bloodtype, 'chart7_div');
-        drawBasicChart(basicDataSets.willvote, 'chart8_div');
-        drawBasicChart(basicDataSets.politicparty, 'chart9_div');
-        drawBasicChart(basicDataSets.vote, 'chart10_div');
-
-        drawCorrelationChart(correlatedDataSets.age, 'chart11_div');
-        drawCorrelationChart(correlatedDataSets.sex, 'chart12_div');
-        drawCorrelationChart(correlatedDataSets.wage, 'chart13_div');
-        drawCorrelationChart(correlatedDataSets.location, 'chart14_div');
-        drawCorrelationChart(correlatedDataSets.stratif, 'chart15_div');
-        drawCorrelationChart(correlatedDataSets.religion, 'chart16_div');
-        drawCorrelationChart(correlatedDataSets.bloodtype, 'chart17_div');
-        drawCorrelationChart(correlatedDataSets.willvote, 'chart18_div');
-        drawCorrelationChart(correlatedDataSets.politicparty, 'chart19_div');
-      });
-
-      function drawBasicChart(source, elemId, chartType, settings) {
-        var chart,
-          options = {'title':source.title,
-                     'width':600,
-                     'height':300},
-          data = new google.visualization.DataTable(),
-          elem = document.getElementById(elemId);
-        if (settings) {
-          options = merge(options, settings);
-        }
-        chartType = chartType || 'PieChart';
-        data.addColumn('string', source.columns[0]);
-        data.addColumn('number', source.columns[1]);
-        data.addRows(source.data);
-        switch (chartType) {
-          case 'PieChart':
-            chart = new google.visualization.PieChart(elem);
-            break;
-          case 'BarChart':
-            chart = new google.visualization.BarChart(elem);
-            break;
-        };
-        chart.draw(data, options);
-      }
-
-      function drawCorrelationChart(source, elemId, settings) {
-        var data = new google.visualization.DataTable(),
-          options = {
-            width: 800,
-            height: 500
-          },
-          elem = document.getElementById(elemId),
-          chart;
-        data.addColumn('string', 'De');
-        data.addColumn('string', 'Para');
-        data.addColumn('number', 'Peso');
-        data.addRows(source.data);
-        if (settings) {
-          options = merge(options, settings);
-        }
-        chart = new google.visualization.Sankey(elem);
-        chart.draw(data, options);
-        elem.insertAdjacentHTML('afterbegin', '<h3>' + source.title + '</h3>');
-      }
-      var merge = function() {
-          var obj = {},
-              i = 0,
-              il = arguments.length,
-              key;
-          for (; i < il; i++) {
-              for (key in arguments[i]) {
-                  if (arguments[i].hasOwnProperty(key)) {
-                      obj[key] = arguments[i][key];
-                  }
-              }
-          }
-          return obj;
-      };
-
     </script>
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $config['gAnalyticsId'];?>"></script>
@@ -410,7 +160,7 @@ input:valid + span:after {
       <div class="total_votes">Total votos: <span><?php echo $parsedData->getTotalVotes()?></span></div>
       <div class="last_update">Última actualización: <span><?php echo $parsedData->getLastUpdate()?></span></div>
 
-<?php if ($config['conclusions']['enabled']):?>
+<?php if ($config['filters']['enabled']):?>
       <!-- Filters -->
       <form id="filters" action="./" method="post">
       	<div class="dates">
@@ -516,37 +266,12 @@ input:valid + span:after {
       </footer>
 
     </div>
+    <script type="text/javascript" src="./assets/scripts.js"></script>
   </body>
-  <script>
-(function (document){
-  //Tabs
-  var tabLinks = document.querySelectorAll('.navigation li');
-    var tabContent = document.querySelectorAll('#content_tabs .tab_content');
-    Array.prototype.forEach.call(tabLinks, function(el, i){
-      el.addEventListener('click', function(event) {
-        Array.prototype.forEach.call(tabLinks, function(el2){
-          el2.className = (el === el2) ? 'active' : '';
-        });
-        Array.prototype.forEach.call(tabContent, function(el2, i2){
-          el2.className = (i === i2) ? 'tab_content active' : 'tab_content';
-        });
-      });
-  });
-
-  //Date inputs dynamic range adjusts
-  let dateInitInput = document.getElementById('date_init');
-  let dateEndInput = document.getElementById('date_end');
-  if (dateInitInput && dateEndInput) {
-  	dateInitInput.addEventListener('change', () => {
-	  	dateEndInput.min = dateInitInput.value;
-	  });
-	  dateEndInput.addEventListener('change', () => {
-	  	dateInitInput.max = dateEndInput.value;
-	  });	
-  }
-
-}(document));
- 
-  </script>
-
 </html>
+
+<?php 
+$total_time = microtime(true) - $script_start_time;
+printf('
+<!-- Generated in %01.3f secs -->',$total_time);
+?>
