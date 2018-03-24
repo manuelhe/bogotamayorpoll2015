@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace DataParse;
 
 class FilterData
@@ -17,8 +17,45 @@ class FilterData
   {
     $this->dataDesc = array_fill(0, 12, []);
     $this->data = [];
-    $this->filterParams = $filterParams;
+    $this->filterParams = $this->validateParams($filterParams);
     $this->getData();
+  }
+
+  private function validateParams($params) {
+    if (!$params) {
+      return [];
+    }
+    $ret = [];
+    foreach($params as $key => $param) {
+      switch($key) {
+        case 'date_init' :
+          $ret[$key] = strtotime($param);
+          break;
+        case 'date_end' :
+          //Include the whole end day
+          $ret[$key] = strtotime($param) + 86399;
+          break;
+      }
+    }
+    return $ret;
+  }
+
+  private function testFilters($data) {
+    $ret = true;
+    if (!count($this->filterParams)) {
+      return true;
+    }
+    foreach($this->filterParams as $key => $param) {
+      switch($key) {
+        case 'date_init' :
+          $ret = $ret && strtotime($data[self::DATE_INDEX]) >= $param;
+          break;
+        case 'date_end' :
+          $ret = $ret && strtotime($data[self::DATE_INDEX]) <= $param;
+          break;
+      }
+    }
+    return $ret;
   }
 
   private function getData()
@@ -38,20 +75,28 @@ class FilterData
         if ($row[1] === 'No') {
           continue;
         }
+
+        //Set max and min dates
+        $date = strtotime($row[self::DATE_INDEX]);
+        $this->minDate = !$this->minDate || $this->minDate > $date ? $date : $this->minDate;
+        $this->maxDate = !$this->maxDate || $this->maxDate < $date ? $date : $this->maxDate;
+
+        if (!$this->testFilters($row)) {
+          continue;
+        }
+
         $num = count($row);
         $rowData = [];
         for ($c = 0; $c < $num; $c++) {
+
           if ($c > 0 && !in_array($row[$c], $this->dataDesc[$c])) {
             $this->dataDesc[$c][] = $row[$c];
           }
           $rowData[$c] = $c !== self::DATE_INDEX ?
             array_search($row[$c], $this->dataDesc[$c]) :
-            strtotime($row[$c]);
+            $date;
+          //if ($c === self::DATE_INDEX) var_dump($row[$c], date('Y-m-d H:i:s', $date));
 
-          if ($c === self::DATE_INDEX) {
-          	$this->minDate = !$this->minDate || $this->minDate > $rowData[$c] ? $rowData[$c] : $this->minDate;
-          	$this->maxDate = !$this->maxDate || $this->maxDate < $rowData[$c] ? $rowData[$c] : $this->maxDate;
-          }
         }
         $this->data[] = $rowData;
       }
@@ -142,5 +187,19 @@ class FilterData
   public function getLastUpdate($format = 'Y-m-d H:i:s')
   {
   	return date($format, $this->lastDataUpdate);
+  }
+
+  public function getFilteredInitDate($format = 'Y-m-d')
+  {
+    return date($format, isset($this->filterParams['date_init']) ?
+                $this->filterParams['date_init'] :
+                $this->minDate);
+  }
+
+  public function getFilteredEndDate($format = 'Y-m-d')
+  {
+    return date($format, isset($this->filterParams['date_end']) ?
+                $this->filterParams['date_end'] :
+                $this->minDate);
   }
 }

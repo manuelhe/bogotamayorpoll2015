@@ -154,39 +154,45 @@ $config = parse_ini_file($baseDir.'config/config.ini');
     <div class="container">
       <header>
         <h1><?php echo $config['siteTitle'];?></h1>
+        <div class="intro-info">
+          <div class="intro">
+            <div><?php echo $config['siteIntro'];?></div>
+          </div>
+          <div class="info">
+            <div class="total_votes">Total votos: <span><?php echo $parsedData->getTotalVotes()?></span></div>
+            <div class="last_update">Última actualización: <span><?php echo $parsedData->getLastUpdate()?></span></div>
+          </div>
+        </div>
 
-        <div><?php echo $config['siteIntro'];?></div>
-
-        <div class="total_votes">Total votos: <span><?php echo $parsedData->getTotalVotes()?></span></div>
-        <div class="last_update">Última actualización: <span><?php echo $parsedData->getLastUpdate()?></span></div>
 
 <?php if ($config['filters']['enabled']):?>
         <!-- Filters -->
+        <span id="show-filters" class="filter-cta">&#x25A6; Filtrar Resultados</span>
         <form id="filters" action="./" method="post">
           <div class="dates">
-                    <div>
-                      <label for="date_init">Fecha Inicio:</label>
-                      <input type="date" id="date_init" name="date_init"
-                             min="<?php echo $parsedData->getMinDate();?>"
-                             max="<?php echo $parsedData->getMaxDate();?>"
-                             value="<?php echo $parsedData->getMinDate();?>"
-                             required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
-                      <span class="validity"></span>
-                    </div>
-                    <div>
-                      <label for="date_end">Fecha Fin:</label>
-                      <input type="date" id="date_end" name="date_end"
-                             min="<?php echo $parsedData->getMinDate();?>"
-                             max="<?php echo $parsedData->getMaxDate();?>"
-                             value="<?php echo $parsedData->getMaxDate();?>"
-                             required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
-                      <span class="validity"></span>
-                    </div>
-
+            <label for="date_init">
+              <span class="label">Fecha Inicio:</span>
+              <input type="date" id="date_init" name="date_init"
+                     min="<?php echo $parsedData->getMinDate();?>"
+                     max="<?php echo $parsedData->getMaxDate();?>"
+                     value="<?php echo $parsedData->getFilteredInitDate();?>"
+                     required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+              <span class="validity"></span>
+            </label>
+            <label for="date_end">
+              <span class="label">Fecha Fin:</span>
+              <input type="date" id="date_end" name="date_end"
+                     min="<?php echo $parsedData->getMinDate();?>"
+                     max="<?php echo $parsedData->getMaxDate();?>"
+                     value="<?php echo $parsedData->getFilteredEndDate();?>"
+                     required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+              <span class="validity"></span>
+            </label>
           </div>
-          <div>
-              <button type="submit" class="button">Filtrar</button>
-                  </div>
+          <label>
+            <span class="label">&nbsp;</span>
+            <button type="submit" class="button">Filtrar</button>
+          </label>
 
         </form>
 <?php endif;?>

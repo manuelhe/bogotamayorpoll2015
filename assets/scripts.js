@@ -107,7 +107,15 @@
 	  });
 	  dateEndInput.addEventListener('change', () => {
 	  	dateInitInput.max = dateEndInput.value;
-	  });	
+	  });
+  }
+  let showFilters = document.getElementById('show-filters');
+  let filters = document.getElementById('filters');
+  if (showFilters && filters) {
+    showFilters.addEventListener('click', () => {
+      filters.className = 'visible';
+      showFilters.style.display = 'none';
+    });
   }
 
 }(document, google));
