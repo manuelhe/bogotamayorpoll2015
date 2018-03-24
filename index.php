@@ -152,44 +152,45 @@ $config = parse_ini_file($baseDir.'config/config.ini');
 
   <body>
     <div class="container">
-      <!--Div that will hold the pie chart-->
-      <h1><?php echo $config['siteTitle'];?></h1>
+      <header>
+        <h1><?php echo $config['siteTitle'];?></h1>
 
-      <div><?php echo $config['siteIntro'];?></div>
+        <div><?php echo $config['siteIntro'];?></div>
 
-      <div class="total_votes">Total votos: <span><?php echo $parsedData->getTotalVotes()?></span></div>
-      <div class="last_update">Última actualización: <span><?php echo $parsedData->getLastUpdate()?></span></div>
+        <div class="total_votes">Total votos: <span><?php echo $parsedData->getTotalVotes()?></span></div>
+        <div class="last_update">Última actualización: <span><?php echo $parsedData->getLastUpdate()?></span></div>
 
 <?php if ($config['filters']['enabled']):?>
-      <!-- Filters -->
-      <form id="filters" action="./" method="post">
-      	<div class="dates">
-				  <div>
-				    <label for="date_init">Fecha Inicio:</label>
-				    <input type="date" id="date_init" name="date_init" 
-				    	   min="<?php echo $parsedData->getMinDate();?>" 
-				    	   max="<?php echo $parsedData->getMaxDate();?>"
-				    	   value="<?php echo $parsedData->getMinDate();?>"
-				    	   required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
-				    <span class="validity"></span>
-				  </div>
-				  <div>
-				    <label for="date_end">Fecha Fin:</label>
-				    <input type="date" id="date_end" name="date_end" 
-				    	   min="<?php echo $parsedData->getMinDate();?>" 
-				    	   max="<?php echo $parsedData->getMaxDate();?>"
-				    	   value="<?php echo $parsedData->getMaxDate();?>"
-				    	   required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
-				    <span class="validity"></span>
-				  </div>
+        <!-- Filters -->
+        <form id="filters" action="./" method="post">
+          <div class="dates">
+                    <div>
+                      <label for="date_init">Fecha Inicio:</label>
+                      <input type="date" id="date_init" name="date_init"
+                             min="<?php echo $parsedData->getMinDate();?>"
+                             max="<?php echo $parsedData->getMaxDate();?>"
+                             value="<?php echo $parsedData->getMinDate();?>"
+                             required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                      <span class="validity"></span>
+                    </div>
+                    <div>
+                      <label for="date_end">Fecha Fin:</label>
+                      <input type="date" id="date_end" name="date_end"
+                             min="<?php echo $parsedData->getMinDate();?>"
+                             max="<?php echo $parsedData->getMaxDate();?>"
+                             value="<?php echo $parsedData->getMaxDate();?>"
+                             required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                      <span class="validity"></span>
+                    </div>
 
-      	</div>
-      	<div>
-      		<button type="submit">Filtrar</button>
-				</div>
+          </div>
+          <div>
+              <button type="submit" class="button">Filtrar</button>
+                  </div>
 
-      </form>
+        </form>
 <?php endif;?>
+      </header>
 
       <div class="navigation">
 
@@ -206,26 +207,16 @@ $config = parse_ini_file($baseDir.'config/config.ini');
       <div id="content_tabs">
 
         <div class="tab_content active">
-          <div class="row">
-            <div id="chart1_div" class="column colspan-6"></div>
-            <div id="chart2_div" class="column colspan-6"></div>
-          </div>
-          <div class="row">
-            <div id="chart3_div" class="column colspan-6"></div>
-            <div id="chart4_div" class="column colspan-6"></div>
-          </div>
-          <div class="row">
-            <div id="chart5_div" class="column colspan-6"></div>
-            <div id="chart6_div" class="column colspan-6"></div>
-          </div>
-          <div class="row">
-            <div id="chart7_div" class="column colspan-6"></div>
-            <div id="chart8_div" class="column colspan-6"></div>
-          </div>
-          <div class="row">
-            <div id="chart9_div" class="column colspan-6"></div>
-            <div id="chart10_div" class="column colspan-6"></div>
-          </div>
+            <div id="chart1_div"></div>
+            <div id="chart2_div"></div>
+            <div id="chart3_div"></div>
+            <div id="chart4_div"></div>
+            <div id="chart5_div"></div>
+            <div id="chart6_div"></div>
+            <div id="chart7_div"></div>
+            <div id="chart8_div"></div>
+            <div id="chart9_div"></div>
+            <div id="chart10_div"></div>
         </div>
 
         <div class="tab_content">
@@ -248,19 +239,17 @@ $config = parse_ini_file($baseDir.'config/config.ini');
       </div>
 
       <footer>
-        <div class="row">
-          <div class="column colspan-9">
-            <a href="https://github.com/manuelhe/bogotamayorpoll2015" target="_blank">GitHub</a>
-            |
-            <a href="<?php echo $config['facebookUrl'];?>">Facebook</a>
-            |
-            Hecho por <a href="https://twitter.com/fractalsoftware">@fractalsoftware</a>
-            |
-            Versión: <?php echo $config['appVersion'];?>
-          </div>
-          <div class="column colspan-3 right">
-            <a rel="license" href="//creativecommons.org/licenses/by/4.0/" title="Creative Commons Attribution 4.0 International license" target="_blank"><img src="//i.creativecommons.org/l/by/4.0/88x31.png" alt="License"></a>
-          </div>
+        <div>
+          <a href="https://github.com/manuelhe/bogotamayorpoll2015" target="_blank">GitHub</a>
+          |
+          <a href="<?php echo $config['facebookUrl'];?>">Facebook</a>
+          |
+          Hecho por <a href="https://twitter.com/fractalsoftware">@fractalsoftware</a>
+          |
+          Versión: <?php echo $config['appVersion'];?>
+        </div>
+        <div>
+          <a rel="license" href="//creativecommons.org/licenses/by/4.0/" title="Creative Commons Attribution 4.0 International license" target="_blank"><img src="//i.creativecommons.org/l/by/4.0/88x31.png" alt="License"></a>
         </div>
 
       </footer>
@@ -270,7 +259,7 @@ $config = parse_ini_file($baseDir.'config/config.ini');
   </body>
 </html>
 
-<?php 
+<?php
 $total_time = microtime(true) - $script_start_time;
 printf('
 <!-- Generated in %01.3f secs -->',$total_time);
