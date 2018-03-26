@@ -200,6 +200,6 @@ class FilterData
   {
     return date($format, isset($this->filterParams['date_end']) ?
                 $this->filterParams['date_end'] :
-                $this->minDate);
+                $this->maxDate);
   }
 }
