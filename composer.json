@@ -1,0 +1,26 @@
+{
+    "name": "fractalsoftware/pollresult",
+    "description": "Simple app to visualize results from a poll",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Manuel Herrera",
+            "email": "manuel.he@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "autoload": {
+        "psr-4": {
+            "DataParse\\": "app/src/DataParse/",
+            "Mas\\": "app/src/Mas/",
+            "Controller\\": "app/src/Controller/"
+        }
+    },
+    "require": {
+        "pimple/pimple": "*"
+    },
+    "config": {
+        "vendor-dir": "app/vendor"
+    }
+}

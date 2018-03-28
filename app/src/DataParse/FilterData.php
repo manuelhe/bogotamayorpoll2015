@@ -61,9 +61,9 @@ class FilterData
   private function getData()
   {
     $count = 0;
-    if (($handle = fopen("data/data.csv", "r")) !== false) {
+    if (($handle = fopen("app/data/data.csv", "r")) !== false) {
 
-      $this->lastDataUpdate = filectime("data/data.csv");
+      $this->lastDataUpdate = filectime("app/data/data.csv");
 
       while (($row = fgetcsv($handle, 1000, ",")) !== false) {
         $count++;

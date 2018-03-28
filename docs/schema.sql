@@ -1,0 +1,151 @@
+DROP TABLE IF EXISTS `locations`;
+CREATE TABLE `locations` (
+  `idlocation`  INT UNSIGNED NOT NULL,
+  `name` VARCHAR(45),
+  PRIMARY KEY (`idlocation`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `locations`
+VALUES
+(1,"Amazonas"),
+(2,"Antioquia"),
+(3,"Arauca"),
+(4,"Atlántico"),
+(5,"Bogotá"),
+(6,"Bolivar"),
+(7,"Boyacá"),
+(8,"Caldas"),
+(9,"Caquetá"),
+(10,"Casanare"),
+(11,"Cauca"),
+(12,"Cesar"),
+(13,"Chocó"),
+(14,"Córdoba"),
+(15,"Cundinamarca"),
+(16,"Guanía"),
+(17,"Guaviare"),
+(18,"Huila"),
+(19,"La Guajira"),
+(20,"Magdalena"),
+(21,"Meta"),
+(22,"Naríño"),
+(23,"Norte de Santander"),
+(24,"Putumayo"),
+(25,"Quindío"),
+(26,"Risaralda"),
+(27,"San Andrés y Providencia"),
+(28,"Santander"),
+(29,"Sucre"),
+(30,"Tolima"),
+(31,"Valle del Cauca"),
+(32,"Vaupés"),
+(33,"Vichada"),
+(34,"Fuera del país");
+
+DROP TABLE IF EXISTS `salary`;
+CREATE TABLE `salary` (
+  `idsalary`  INT UNSIGNED NOT NULL,
+  `name` VARCHAR(60),
+  PRIMARY KEY (`idsalary`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `salary`
+VALUES
+(1,"Menos de un SMMLV"),
+(2,"1 a 2 SMMLV"),
+(3,"3 SMMLV"),
+(4,"4 a 6 SMMLV"),
+(5,"7 a 10 SMMLV"),
+(6,"11 a 15 SMMLV"),
+(7,"16 a 30 SMMLV"),
+(8,"Yo, o mi papá, somos accionistas de Invercolsa"),
+(9,"Soy freelance, no se que es recibir plata mensualmente");
+
+DROP TABLE IF EXISTS `religion`;
+CREATE TABLE `religion` (
+  `idreligion`  INT UNSIGNED NOT NULL,
+  `name` VARCHAR(70),
+  PRIMARY KEY (`idreligion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `religion`
+VALUES
+(1,"Ateo"),
+(2,"Bahaísmo"),
+(3,"Budismo"),
+(4,"Confusianismo"),
+(5,"Católico, Apostólico y Romano"),
+(6,"Católico de otro tipo"),
+(7,"Rastafari"),
+(8,"Cristiano Ortodoxo"),
+(9,"Mormón"),
+(10,"Anglicano"),
+(11,"Luterano"),
+(12,"Calvinista"),
+(13,"Baptista"),
+(14,"Metodista"),
+(15,"Unitario"),
+(16,"Universalista"),
+(17,"Otra secta cristiana protestante"),
+(18,"Adventista de algún tipo"),
+(19,"Testigo de Jehová"),
+(20,"Espiritista"),
+(21,"Hinduista de algún tipo"),
+(22,"Alguna práctica tribal indígena"),
+(23,"Fetichista"),
+(24,"Islamista"),
+(25,"Yainista"),
+(26,"Judío"),
+(27,"Neopaganista de algún tipo (como la Wicca o el Celtismo)"),
+(28,"Pastafarianista (con o sin albóndigas)"),
+(29,"Satanista"),
+(30,"Shinto"),
+(31,"Sintoista"),
+(32,"Zoroastrasista"),
+(33,"Humanista Secular"),
+(34,"Gnóstico"),
+(35,"Agnóstico"),
+(36,"Ninguna/Otra/No le importa");
+
+DROP TABLE IF EXISTS `candidate`;
+CREATE TABLE `candidate` (
+  `idcandidate`  INT UNSIGNED NOT NULL,
+  `name` VARCHAR(60),
+  PRIMARY KEY (`idcandidate`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `candidate`
+VALUES
+(1,"Germán Vargas Lleras"),
+(2,"Gustavo Petro"),
+(3,"Humberto de la Calle"),
+(4,"Iván Duque Márquez"),
+(5,"Piedad Córdoba"),
+(6,"Sergio Fajardo"),
+(7,"Viviane Morales"),
+(8,"En blanco/Nulo");
+
+DROP TABLE IF EXISTS `answers`;
+CREATE TABLE `answers` (
+  `idanswer` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `date` DATETIME NOT NULL,
+  `age` ENUM('18-22', '23-28', '29-33', '34-40', '41-48', '49-56', '57-64', '65-100', '+100') NOT NULL,
+  `gender` ENUM('Masculino', 'Femenino', 'LGBTQIAP') NOT NULL,
+  `bloodtype` ENUM('A+', 'B+', 'O+', 'AB+', 'A-', 'B-', 'O-', 'AB-') NOT NULL,
+  `willvote` ENUM('Si', 'No', 'No me decido/No me importa') NOT NULL,
+  `politicparty` ENUM('Si', 'No') NOT NULL,
+  `idlocation` INT UNSIGNED NOT NULL,
+  `idsalary` INT UNSIGNED NOT NULL,
+  `idreligion` INT UNSIGNED NOT NULL,
+  `idcandidate` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`idanswer`),
+  INDEX `age_idx` (`age` ASC),
+  INDEX `gender_idx` (`gender` ASC),
+  INDEX `bloodtype_idx` (`bloodtype` ASC),
+  INDEX `willvote_idx` (`willvote` ASC),
+  INDEX `politicparty_idx` (`politicparty` ASC),
+  INDEX `idlocation_idx` (`idlocation` ASC),
+  INDEX `idsalary_idx` (`idsalary` ASC),
+  INDEX `idreligion_idx` (`idreligion` ASC),
+  INDEX `idcandidate_idx` (`idcandidate` ASC),
+  CONSTRAINT `idlocation_ibfk` FOREIGN KEY (`idlocation`) REFERENCES `locations` (`idlocation`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `idsalary_ibfk` FOREIGN KEY (`idsalary`) REFERENCES `salary` (`idsalary`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `idreligion_ibfk` FOREIGN KEY (`idreligion`) REFERENCES `religion` (`idreligion`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `idcandidate_ibfk` FOREIGN KEY (`idcandidate`) REFERENCES `candidate` (`idcandidate`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
