@@ -6,7 +6,7 @@ namespace Controller;
  *
  * @author manuel.he@gmail.com
  */
-class ParseData extends \Mas\Controller
+class Parse extends \Mas\Controller
 {
     public function response() {
         if(!(isset($this->urlParams[0]) && $this->urlParams[0] === $this->config['config']['parse_key'])){
