@@ -1,3 +1,5 @@
 .DS_Store
 .editorconfig
-data/*
+/app/data/*
+/app/secretConf/
+/app/vendor/
