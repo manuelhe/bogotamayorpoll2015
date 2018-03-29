@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS `answers`;
 DROP TABLE IF EXISTS `stratif`;
 DROP TABLE IF EXISTS `candidate`;
-DROP TABLE IF EXISTS `locations`;
+DROP TABLE IF EXISTS `location`;
 DROP TABLE IF EXISTS `salary`;
 DROP TABLE IF EXISTS `religion`;
 
@@ -21,12 +21,12 @@ VALUES
 (7,"6+"),
 (8,"No tengo servicio eléctrico en mi casa / vivo debajo de un puente");
 
-CREATE TABLE `locations` (
+CREATE TABLE `location` (
   `idlocation`  INT UNSIGNED NOT NULL,
   `name` VARCHAR(45),
   PRIMARY KEY (`idlocation`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO `locations`
+INSERT INTO `location`
 VALUES
 (1,"Amazonas"),
 (2,"Antioquia"),
@@ -49,7 +49,7 @@ VALUES
 (19,"La Guajira"),
 (20,"Magdalena"),
 (21,"Meta"),
-(22,"Naríño"),
+(22,"Nariño"),
 (23,"Norte de Santander"),
 (24,"Putumayo"),
 (25,"Quindío"),
@@ -165,7 +165,7 @@ CREATE TABLE `answers` (
   INDEX `idreligion_idx` (`idreligion` ASC),
   INDEX `idcandidate_idx` (`idcandidate` ASC),
   CONSTRAINT `idstratif_ibfk` FOREIGN KEY (`idstratif`) REFERENCES `stratif` (`idstratif`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `idlocation_ibfk` FOREIGN KEY (`idlocation`) REFERENCES `locations` (`idlocation`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `idlocation_ibfk` FOREIGN KEY (`idlocation`) REFERENCES `location` (`idlocation`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `idsalary_ibfk` FOREIGN KEY (`idsalary`) REFERENCES `salary` (`idsalary`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `idreligion_ibfk` FOREIGN KEY (`idreligion`) REFERENCES `religion` (`idreligion`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `idcandidate_ibfk` FOREIGN KEY (`idcandidate`) REFERENCES `candidate` (`idcandidate`) ON DELETE CASCADE ON UPDATE CASCADE
