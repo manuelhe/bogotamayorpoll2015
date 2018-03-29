@@ -1,4 +1,26 @@
+DROP TABLE IF EXISTS `answers`;
+DROP TABLE IF EXISTS `stratif`;
+DROP TABLE IF EXISTS `candidate`;
 DROP TABLE IF EXISTS `locations`;
+DROP TABLE IF EXISTS `salary`;
+DROP TABLE IF EXISTS `religion`;
+
+CREATE TABLE `stratif` (
+  `idstratif`  INT UNSIGNED NOT NULL,
+  `name` VARCHAR(80),
+  PRIMARY KEY (`idstratif`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `stratif`
+VALUES
+(1,"1"),
+(2,"2"),
+(3,"3"),
+(4,"4"),
+(5,"5"),
+(6,"6"),
+(7,"6+"),
+(8,"No tengo servicio eléctrico en mi casa / vivo debajo de un puente");
+
 CREATE TABLE `locations` (
   `idlocation`  INT UNSIGNED NOT NULL,
   `name` VARCHAR(45),
@@ -41,7 +63,6 @@ VALUES
 (33,"Vichada"),
 (34,"Fuera del país");
 
-DROP TABLE IF EXISTS `salary`;
 CREATE TABLE `salary` (
   `idsalary`  INT UNSIGNED NOT NULL,
   `name` VARCHAR(60),
@@ -59,7 +80,6 @@ VALUES
 (8,"Yo, o mi papá, somos accionistas de Invercolsa"),
 (9,"Soy freelance, no se que es recibir plata mensualmente");
 
-DROP TABLE IF EXISTS `religion`;
 CREATE TABLE `religion` (
   `idreligion`  INT UNSIGNED NOT NULL,
   `name` VARCHAR(70),
@@ -104,7 +124,6 @@ VALUES
 (35,"Agnóstico"),
 (36,"Ninguna/Otra/No le importa");
 
-DROP TABLE IF EXISTS `candidate`;
 CREATE TABLE `candidate` (
   `idcandidate`  INT UNSIGNED NOT NULL,
   `name` VARCHAR(60),
@@ -121,7 +140,6 @@ VALUES
 (7,"Viviane Morales"),
 (8,"En blanco/Nulo");
 
-DROP TABLE IF EXISTS `answers`;
 CREATE TABLE `answers` (
   `idanswer` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `date` DATETIME NOT NULL,
@@ -130,6 +148,7 @@ CREATE TABLE `answers` (
   `bloodtype` ENUM('A+', 'B+', 'O+', 'AB+', 'A-', 'B-', 'O-', 'AB-') NOT NULL,
   `willvote` ENUM('Si', 'No', 'No me decido/No me importa') NOT NULL,
   `politicparty` ENUM('Si', 'No') NOT NULL,
+  `idstratif` INT UNSIGNED NOT NULL,
   `idlocation` INT UNSIGNED NOT NULL,
   `idsalary` INT UNSIGNED NOT NULL,
   `idreligion` INT UNSIGNED NOT NULL,
@@ -140,10 +159,12 @@ CREATE TABLE `answers` (
   INDEX `bloodtype_idx` (`bloodtype` ASC),
   INDEX `willvote_idx` (`willvote` ASC),
   INDEX `politicparty_idx` (`politicparty` ASC),
+  INDEX `idstratif_idx` (`idstratif` ASC),
   INDEX `idlocation_idx` (`idlocation` ASC),
   INDEX `idsalary_idx` (`idsalary` ASC),
   INDEX `idreligion_idx` (`idreligion` ASC),
   INDEX `idcandidate_idx` (`idcandidate` ASC),
+  CONSTRAINT `idstratif_ibfk` FOREIGN KEY (`idstratif`) REFERENCES `stratif` (`idstratif`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `idlocation_ibfk` FOREIGN KEY (`idlocation`) REFERENCES `locations` (`idlocation`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `idsalary_ibfk` FOREIGN KEY (`idsalary`) REFERENCES `salary` (`idsalary`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `idreligion_ibfk` FOREIGN KEY (`idreligion`) REFERENCES `religion` (`idreligion`) ON DELETE CASCADE ON UPDATE CASCADE,
