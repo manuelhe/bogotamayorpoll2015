@@ -11,7 +11,7 @@ class Home extends \Mas\Controller
     public function response() {
         $template = new \Mas\Template($this->config['config']['templatesDir']);
         $params = isset($_POST) && $_POST ? $_POST : false;
-        $parsedData = new \DataParse\FilterData($params);
+        $parsedData = new \DataParse\GetData($this->config, $params);
 
         $template->setVar('config', $this->config['config']);
         $template->setVar('alerts', $this->getAlerts());

@@ -30,90 +30,90 @@
         age: {
           title: "Rangos de edad en años",
           columns: ['Edad','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(2);?>
+          data: <?php echo $parsedData->getGoogleGraphData('age');?>
         },
         sex: {
           title: "Género",
           columns: ['Género','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(3);?>
+          data: <?php echo $parsedData->getGoogleGraphData('gender');?>
         },
         wage: {
           title: "Ingresos Mensuales",
           columns: ['Ingresos','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(4);?>
+          data: <?php echo $parsedData->getGoogleGraphData('salary');?>
         },
         location: {
           title: "Lugar de Residencia",
           columns: ['Ubicación','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(11);?>
+          data: <?php echo $parsedData->getGoogleGraphData('location');?>
         },
         stratif: {
           title: "Estrato",
           columns: ['Estrato','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(5);?>
+          data: <?php echo $parsedData->getGoogleGraphData('stratif');?>
         },
         religion: {
           title: "Creencia religiosa",
           columns: ['Religión','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(6);?>
+          data: <?php echo $parsedData->getGoogleGraphData('religion');?>
         },
         bloodtype: {
           title: "Tipo de Sangre",
           columns: ['Tipo de Sangre','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(7);?>
+          data: <?php echo $parsedData->getGoogleGraphData('bloodtype');?>
         },
         willvote: {
           title: "Va a votar en las próximas elecciones",
           columns: ['Votante activo','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(8);?>
+          data: <?php echo $parsedData->getGoogleGraphData('willvote');?>
         },
         politicparty: {
           title: "Pertenece a un grupo político",
           columns: ['Militante','Total'],
-          data: <?php echo $parsedData->getGoogleGraphData(9);?>
+          data: <?php echo $parsedData->getGoogleGraphData('politicparty');?>
         },
         vote: {
           title: "Votos por Candidato",
           columns: ['Candidato','Votos'],
-          data: <?php echo $parsedData->getGoogleGraphData(10);?>
+          data: <?php echo $parsedData->getGoogleGraphData('candidate');?>
         }
       };
       var correlatedDataSets = {
         age: {
           title: "Edad vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(2);?>
+          data: <?php echo $parsedData->getCorrelatedResults('age');?>
         },
         sex: {
           title: "Género vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(3);?>
+          data: <?php echo $parsedData->getCorrelatedResults('gender');?>
         },
         wage: {
           title: "Ingresos vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(4);?>
+          data: <?php echo $parsedData->getCorrelatedResults('salary');?>
         },
         location: {
           title: "Ubicación vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(11);?>
+          data: <?php echo $parsedData->getCorrelatedResults('location');?>
         },
         stratif: {
           title: "Estrato vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(5);?>
+          data: <?php echo $parsedData->getCorrelatedResults('stratif');?>
         },
         religion: {
           title: "Religión vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(6);?>
+          data: <?php echo $parsedData->getCorrelatedResults('religion');?>
         },
         bloodtype: {
           title: "Tipo de Sangre vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(7);?>
+          data: <?php echo $parsedData->getCorrelatedResults('bloodtype');?>
         },
         willvote: {
           title: "Votante Activo vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(8);?>
+          data: <?php echo $parsedData->getCorrelatedResults('willvote');?>
         },
         politicparty: {
           title: "Militante político vs. Candidato",
-          data: <?php echo $parsedData->getCorrelatedResults(9);?>
+          data: <?php echo $parsedData->getCorrelatedResults('politicparty');?>
         }
       };
     </script>
@@ -136,7 +136,10 @@
             <div><?php echo $config['siteIntro'];?></div>
           </div>
           <div class="info">
-            <div class="total_votes">Total votos: <span><?php echo $parsedData->getTotalVotes()?></span></div>
+            <div class="total_votes">Total votos: <span><?php echo number_format($parsedData->getTotalVotes())?></span></div>
+<?php if($parsedData->getTotalDisplayedVotes() < $parsedData->getTotalVotes()):?>
+            <div class="total_votes">Total votos filtrados: <span><?php echo number_format($parsedData->getTotalDisplayedVotes())?></span></div>
+<?php endif;?>
             <div class="last_update">Última actualización: <span><?php echo $parsedData->getLastUpdate()?></span></div>
           </div>
         </div>
