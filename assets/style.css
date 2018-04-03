@@ -141,7 +141,13 @@ form .button:hover {background:#7A7ACF;}
   font-weight: normal;
   font-size: 2.2em;
 }
-
+.faq dt{
+  color:#666;
+}
+.faq dd{
+  font-size: 0.9rem;
+  margin-bottom: 2em;
+}
 @media screen and (min-width:650px) {
   .navigation li{font-size:1em}
   .tab_content{padding:1em}
@@ -158,7 +164,8 @@ form .button:hover {background:#7A7ACF;}
   header{padding:0;}
   .tab_content{padding:1em;border:1px solid #d5d6d9;}
   .navigation li{padding:10px 30px;}
-  .content-container.home{padding:2rem 1rem;}
+  .content-container{margin-top:70px;width:80rem;}
+  .content-container.home{padding:2rem 1rem}
   footer{padding:2rem 1rem;}
   .header {
     display: flex;
@@ -176,7 +183,7 @@ form .button:hover {background:#7A7ACF;}
   }
   .header_menu ul{
     height: auto;
-    margin: 34px 0 0 20px;
+    margin: 35px 0 0 20px;
   }
   .header_menu li {
     display: inline-block;
@@ -197,6 +204,10 @@ form .button:hover {background:#7A7ACF;}
   .textblock p{
     font-size: 1rem;
     line-height: 2rem;
+  }
+  .faq dd{
+    line-height: 1.5rem;
+    margin-bottom: 3em;
   }
 }
 
