@@ -99,9 +99,6 @@
   <h1><?php echo $config['siteTitle'];?></h1>
 
   <div class="intro-info">
-    <div class="intro">
-      <div><?php echo $config['siteIntro'];?></div>
-    </div>
     <div class="info">
       <div class="total_votes">Total votos: <span><?php echo number_format($parsedData->getTotalVotes())?></span></div>
 <?php if($parsedData->getTotalDisplayedVotes() < $parsedData->getTotalVotes()):?>
@@ -190,4 +187,9 @@
   </div>
 <?php endif;?>
 </div>
+
+<div class="intro">
+  <div><?php echo $config['siteIntro'];?></div>
+</div>
+
 </div>

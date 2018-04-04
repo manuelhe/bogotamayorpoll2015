@@ -18,9 +18,9 @@ anonimidad de las respuestas ante este ejercicio. No estamos regulados ni vigila
 Nacional del Estado Civil, la Superintendencia de Puertos y Transporte ni por el Comité de  Convivencia de 
 nuestro conjunto.</p>
 <p>Tanto las tablas de resultados
-  (<a href="http://morra.co/presidencia2018/data/data.csv" target="_blank">http://morra.co/presidencia2018/data/data.csv</a>) 
+  (<a href="http://morra.co/presidencia2018/data/data.csv" download="ResultadosVotoPresidenciaColombia2018.csv">Resultados Presidencia Colombia 2018</a>) 
   como el mismísimo código fuente de nuestra página de respuestas 
-  (<a href="https://github.com/manuelhe/bogotamayorpoll2015" target="_blank">https://github.com/manuelhe/bogotamayorpoll2015</a>) 
+  (<a href="https://github.com/manuelhe/bogotamayorpoll2015" target="_blank">Repositorio en Github</a>) 
   se encuentran disponibles para su escrutinio y comentarios por parte del público (MIT Licensed).</p>
 <p>Este, finalmente, es sólo un ejercicio académico, sin la menor validez y rigurosidad que pueden tener los 
 grandes encuestadores. No pretendemos dar un resultado ni especular  sobre lo inespeculable. Nuestro 
