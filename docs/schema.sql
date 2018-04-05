@@ -141,7 +141,6 @@ VALUES
 (8,"En blanco/Nulo");
 
 CREATE TABLE `answers` (
-  `idanswer` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `date` DATETIME NOT NULL,
   `age` ENUM('18-22', '23-28', '29-33', '34-40', '41-48', '49-56', '57-64', '65-100', '+100') NOT NULL,
   `gender` ENUM('Masculino', 'Femenino', 'LGBTQIAP') NOT NULL,
@@ -153,7 +152,6 @@ CREATE TABLE `answers` (
   `idsalary` INT UNSIGNED NOT NULL,
   `idreligion` INT UNSIGNED NOT NULL,
   `idcandidate` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`idanswer`),
   INDEX `age_idx` (`age` ASC),
   INDEX `gender_idx` (`gender` ASC),
   INDEX `bloodtype_idx` (`bloodtype` ASC),
@@ -164,6 +162,15 @@ CREATE TABLE `answers` (
   INDEX `idsalary_idx` (`idsalary` ASC),
   INDEX `idreligion_idx` (`idreligion` ASC),
   INDEX `idcandidate_idx` (`idcandidate` ASC),
+  INDEX `age_candidate_idx` (`age` ASC, `idcandidate` ASC),
+  INDEX `gender_candidate_idx` (`gender` ASC, `idcandidate` ASC),
+  INDEX `bloodtype_candidate_idx` (`bloodtype` ASC, `idcandidate` ASC),
+  INDEX `willvote_candidate_idx` (`willvote` ASC, `idcandidate` ASC),
+  INDEX `politicparty_candidate_idx` (`politicparty` ASC, `idcandidate` ASC),
+  INDEX `stratif_candidate_idx` (`idstratif` ASC, `idcandidate` ASC),
+  INDEX `location_candidate_idx` (`idlocation` ASC, `idcandidate` ASC),
+  INDEX `salary_candidate_idx` (`idsalary` ASC, `idcandidate` ASC),
+  INDEX `religion_candidate_idx` (`idreligion` ASC, `idcandidate` ASC),
   CONSTRAINT `idstratif_ibfk` FOREIGN KEY (`idstratif`) REFERENCES `stratif` (`idstratif`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `idlocation_ibfk` FOREIGN KEY (`idlocation`) REFERENCES `location` (`idlocation`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `idsalary_ibfk` FOREIGN KEY (`idsalary`) REFERENCES `salary` (`idsalary`) ON DELETE CASCADE ON UPDATE CASCADE,
