@@ -44,16 +44,36 @@ p{font-size:0.9rem}
 .visible{display:block;}
 
 input:invalid + span{position:relative;}
-input:invalid + span:after{content:'✖';position:absolute;right:-18px;}
+input:invalid + span:after{content:'✖';}
 input:valid + span{position:relative;}
-input:valid + span:after{content:'✓';position:absolute;right:-18px;}
+input:valid + span:after{content:'✓';}
 
 form{display:none}
 form label {display:block;margin:0px;}
-form .label {float:left;width:20%;text-align:right;padding-right:10px;margin-top:10px;color:#888;}
-form input,form textarea,form select{border:1px solid #DADADA;color:#888;height:30px;margin-bottom:16px;margin-right:6px;margin-top:2px;outline:0 none;padding:3px 3px 3px 5px;width:70%;font-size:12px;line-height:15px;box-shadow:inset 0px 1px 4px #ECECEC;-moz-box-shadow:inset 0px 1px 4px #ECECEC;-webkit-box-shadow:inset 0px 1px 4px #ECECEC;}
+form .label {display:block;padding-right:10px;margin-top:5px;color:#888;}
+form input,form textarea,form select{
+  border:1px solid #DADADA;
+  color:#888;
+  height:30px;
+  margin-bottom:16px;
+  margin-right:6px;
+  margin-top:2px;
+  outline:0 none;
+  padding:3px 3px 3px 5px;
+  font-size:12px;
+  line-height:15px;
+  box-shadow:inset 0px 1px 4px #ECECEC;
+}
 form textarea{padding:5px 3px 3px 5px;}
-form select {background:#FFF url('down-arrow.png') no-repeat right;background:#FFF url('down-arrow.png') no-repeat right);appearance:none;-webkit-appearance:none;-moz-appearance:none;text-indent:0.01px;text-overflow:'';width:70%;height:35px;line-height:25px;}
+form select {
+  background:#FFF url('down-arrow.png') no-repeat right;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  text-indent:0.01px;
+  text-overflow:'';
+  height:35px;
+  line-height:25px;
+}
 form textarea{height:100px;}
 form .button {background:#7575E2;border:none;padding:10px 25px 10px 25px;color:#FFF;box-shadow:1px 1px 5px #B6B6B6;border-radius:3px;text-shadow:1px 1px 1px #3F3F9E;cursor:pointer;}
 form .button:hover {background:#7A7ACF;}
@@ -164,6 +184,11 @@ form .button:hover {background:#7A7ACF;}
   .textblock{
     margin: 0 3em;
     font-size: 1.1em;
+  }
+  form .label {
+    float:left;
+    text-align:right;
+    width:20%;
   }
 }
 @media screen and (min-width:1280px) {

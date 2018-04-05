@@ -134,7 +134,6 @@
       </label>
     </div>
     <label>
-      <span class="label">&nbsp;</span>
       <button type="submit" class="button">Filtrar</button>
     </label>
 
