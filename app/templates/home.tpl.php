@@ -113,7 +113,7 @@
   <!-- Filters -->
   <span id="show-filters" class="filter-cta">&#x25A6; Filtrar Resultados</span>
   <form id="filters" action="./" method="post">
-    <div class="dates">
+    <div class="filter-dates">
       <label for="date_init">
         <span class="label">Fecha Inicio:</span>
         <input type="date" id="date_init" name="date_init"
@@ -133,6 +133,91 @@
         <span class="validity"></span>
       </label>
     </div>
+    <div class="filter-ages">
+      <label for="ages">
+        <span class="label">Edad</span>
+        <select id="ages" name="age">
+          <option value="">Todas</option>
+<?php foreach($ageValues as $val):?>
+          <option value="<?php echo $val['id'];?>"
+<?php if($val['selected']):?>
+                  selected="selected"
+<?php endif;?>
+          >
+            <?php echo $val['value'];?>
+          </option>
+<?php endforeach;?>
+        </select>
+      </label>
+    </div>
+    <div class="filter-gender">
+      <label for="genders">
+        <span class="label">Género</span>
+        <select id="genders" name="gender">
+          <option value="">Todos</option>
+<?php foreach($genderValues as $val):?>
+          <option value="<?php echo $val['id'];?>"
+<?php if($val['selected']):?>
+                  selected="selected"
+<?php endif;?>
+          >
+            <?php echo $val['value'];?>
+          </option>
+<?php endforeach;?>
+        </select>
+      </label>
+    </div>
+    <div class="filter-bloodtype">
+      <label for="bloodtypes">
+        <span class="label">Tipo de Sangre</span>
+        <select id="bloodtypes" name="bloodtype">
+          <option value="">Todos</option>
+<?php foreach($bloodtypeValues as $val):?>
+          <option value="<?php echo $val['id'];?>"
+<?php if($val['selected']):?>
+                  selected="selected"
+<?php endif;?>
+          >
+            <?php echo $val['value'];?>
+          </option>
+<?php endforeach;?>
+        </select>
+      </label>
+    </div>
+    <div class="filter-willvote">
+      <label for="willvotes">
+        <span class="label">Votante Activo</span>
+        <select id="willvotes" name="willvote">
+          <option value="">Todos</option>
+<?php foreach($willvoteValues as $val):?>
+          <option value="<?php echo $val['id'];?>"
+<?php if($val['selected']):?>
+                  selected="selected"
+<?php endif;?>
+          >
+            <?php echo $val['value'];?>
+          </option>
+<?php endforeach;?>
+        </select>
+      </label>
+    </div>
+    <div class="filter-politicparty">
+      <label for="politicpartys">
+        <span class="label">Militante Político</span>
+        <select id="politicpartys" name="politicparty">
+          <option value="">Todos</option>
+<?php foreach($politicpartyValues as $val):?>
+          <option value="<?php echo $val['id'];?>"
+<?php if($val['selected']):?>
+                  selected="selected"
+<?php endif;?>
+          >
+            <?php echo $val['value'];?>
+          </option>
+<?php endforeach;?>
+        </select>
+      </label>
+    </div>
     <label>
       <button type="submit" class="button">Filtrar</button>
     </label>
@@ -140,6 +225,7 @@
   </form>
 <?php endif;?>
 </header>
+
 
 <div class="navigation">
 

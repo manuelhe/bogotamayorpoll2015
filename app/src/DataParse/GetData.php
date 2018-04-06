@@ -26,6 +26,9 @@ class GetData
     $ret = [];
     $queryPortion = [];
     foreach($params as $key => $param) {
+      if (!trim($param)) {
+        continue;
+      }
       switch($key) {
         case 'date_init' :
           $ret[$key] = strtotime($param);
@@ -36,6 +39,13 @@ class GetData
           $date = strtotime($param) + 86399;
           $ret[$key] = $date;
           $queryPortion[] = "an.date <= '". date('Y-m-d H:i:s', $date) . "'";
+          break;
+        case 'age' :
+        case 'gender' :
+        case 'bloodtype' :
+        case 'willvote' :
+        case 'politicparty' :
+          $queryPortion[] = "an.{$key} = '{$param}'";
           break;
       }
     }
