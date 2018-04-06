@@ -113,6 +113,7 @@
   <!-- Filters -->
   <span id="show-filters" class="filter-cta">&#x25A6; Filtrar Resultados</span>
   <form id="filters" action="./" method="post">
+
     <div class="filter-dates">
       <label for="date_init">
         <span class="label">Fecha Inicio:</span>
@@ -133,6 +134,7 @@
         <span class="validity"></span>
       </label>
     </div>
+
     <div class="filter-ages">
       <label for="ages">
         <span class="label">Edad</span>
@@ -150,6 +152,7 @@
         </select>
       </label>
     </div>
+
     <div class="filter-gender">
       <label for="genders">
         <span class="label">Género</span>
@@ -167,6 +170,7 @@
         </select>
       </label>
     </div>
+
     <div class="filter-bloodtype">
       <label for="bloodtypes">
         <span class="label">Tipo de Sangre</span>
@@ -184,6 +188,7 @@
         </select>
       </label>
     </div>
+
     <div class="filter-willvote">
       <label for="willvotes">
         <span class="label">Votante Activo</span>
@@ -201,6 +206,7 @@
         </select>
       </label>
     </div>
+
     <div class="filter-politicparty">
       <label for="politicpartys">
         <span class="label">Militante Político</span>
@@ -218,6 +224,97 @@
         </select>
       </label>
     </div>
+
+    <div class="filter-candidate">
+      <label for="candidates">
+        <span class="label">Candidato</span>
+        <select id="candidates" name="candidate">
+          <option value="">Todos</option>
+<?php foreach($candidateValues as $val):?>
+          <option value="<?php echo $val['id'];?>"
+<?php if($val['selected']):?>
+                  selected="selected"
+<?php endif;?>
+          >
+            <?php echo $val['value'];?>
+          </option>
+<?php endforeach;?>
+        </select>
+      </label>
+    </div>
+
+    <div class="filter-location">
+      <label for="locations">
+        <span class="label">Ubicación</span>
+        <select id="locations" name="location">
+          <option value="">Todos</option>
+<?php foreach($locationValues as $val):?>
+          <option value="<?php echo $val['id'];?>"
+<?php if($val['selected']):?>
+                  selected="selected"
+<?php endif;?>
+          >
+            <?php echo $val['value'];?>
+          </option>
+<?php endforeach;?>
+        </select>
+      </label>
+    </div>
+
+    <div class="filter-religion">
+      <label for="religions">
+        <span class="label">Credo</span>
+        <select id="religions" name="religion">
+          <option value="">Todos</option>
+<?php foreach($religionValues as $val):?>
+          <option value="<?php echo $val['id'];?>"
+<?php if($val['selected']):?>
+                  selected="selected"
+<?php endif;?>
+          >
+            <?php echo $val['value'];?>
+          </option>
+<?php endforeach;?>
+        </select>
+      </label>
+    </div>
+
+    <div class="filter-salary">
+      <label for="salarys">
+        <span class="label">Ingresos Mensuales</span>
+        <select id="salarys" name="salary">
+          <option value="">Todos</option>
+<?php foreach($salaryValues as $val):?>
+          <option value="<?php echo $val['id'];?>"
+<?php if($val['selected']):?>
+                  selected="selected"
+<?php endif;?>
+          >
+            <?php echo $val['value'];?>
+          </option>
+<?php endforeach;?>
+        </select>
+      </label>
+    </div>
+
+    <div class="filter-stratif">
+      <label for="stratifs">
+        <span class="label">Estrato</span>
+        <select id="stratifs" name="stratif">
+          <option value="">Todos</option>
+<?php foreach($stratifValues as $val):?>
+          <option value="<?php echo $val['id'];?>"
+<?php if($val['selected']):?>
+                  selected="selected"
+<?php endif;?>
+          >
+            <?php echo $val['value'];?>
+          </option>
+<?php endforeach;?>
+        </select>
+      </label>
+    </div>
+
     <label>
       <button type="submit" class="button">Filtrar</button>
     </label>

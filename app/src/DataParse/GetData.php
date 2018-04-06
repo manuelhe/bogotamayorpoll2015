@@ -47,6 +47,14 @@ class GetData
         case 'politicparty' :
           $queryPortion[] = "an.{$key} = '{$param}'";
           break;
+        case 'candidate' :
+        case 'location' :
+        case 'religion' :
+        case 'salary' :
+        case 'stratif' :
+          $queryPortion[] = "an.id{$key} = {$param}";
+          break;
+
       }
     }
     $this->filterQueryPortion = ' WHERE ' . implode(' AND ', $queryPortion);

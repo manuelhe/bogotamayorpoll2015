@@ -21,6 +21,11 @@ class Home extends \Mas\Controller
         $templateVars['bloodtypeValues'] = $filterFields->getValuesFor('bloodtype');
         $templateVars['willvoteValues'] = $filterFields->getValuesFor('willvote');
         $templateVars['politicpartyValues'] = $filterFields->getValuesFor('politicparty');
+        $templateVars['candidateValues'] = $filterFields->getValuesFor('candidate');
+        $templateVars['locationValues'] = $filterFields->getValuesFor('location');
+        $templateVars['religionValues'] = $filterFields->getValuesFor('religion');
+        $templateVars['salaryValues'] = $filterFields->getValuesFor('salary');
+        $templateVars['stratifValues'] = $filterFields->getValuesFor('stratif');
         $templateVars['activeMenuItem'] = 'Resultados';
 
         $layout = new \Mas\LayoutHelper($this->config);
