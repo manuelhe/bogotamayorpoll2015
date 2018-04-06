@@ -12,6 +12,11 @@ class FilterFields
     $this->db = $config['db'];
     $this->filterParams = $filterParams;
     $this->getEnumFields();
+    $this->getRelatedFieldsFor('candidate');
+    $this->getRelatedFieldsFor('location');
+    $this->getRelatedFieldsFor('religion');
+    $this->getRelatedFieldsFor('salary');
+    $this->getRelatedFieldsFor('stratif');
   }
 
   private function getEnumFields() {
@@ -29,6 +34,28 @@ class FilterFields
           ];
         }, $matches);
       }
+    } catch (PDOException $e) {
+      print "Error!: " . $e->getMessage() . "<br/>";
+      die();
+    }
+  }
+
+  private function getRelatedFieldsFor($tableName) {
+    if (!$tableName) {
+      throw new InvalidArgumentException('tableName argument is required.');
+    }
+    try {
+      $idFieldName = 'id' . $tableName;
+      $values = [];
+      $sa = $this->db->query("SELECT * FROM {$tableName}");
+      while($d = $sa->fetch(\PDO::FETCH_ASSOC)){
+        $values[] = [
+          'id'        => $d[$idFieldName], 
+          'value'     => $d['name'],
+          'selected'  => isset($this->filterParams[$tableName]) &&  $this->filterParams[$tableName] === $d[$idFieldName]
+        ];
+      }
+      $this->fields[$tableName] = $values;
     } catch (PDOException $e) {
       print "Error!: " . $e->getMessage() . "<br/>";
       die();
