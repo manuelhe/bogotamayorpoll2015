@@ -26,9 +26,13 @@ class GetData
     $ret = [];
     $queryPortion = [];
     foreach($params as $key => $param) {
-      if (!trim($param)) {
+      if (is_array($param) && in_array('', $param)) {
         continue;
       }
+      if (is_string($param) && !trim($param)) {
+        continue;
+      }
+      $subQueryPortion = [];
       switch($key) {
         case 'date_init' :
           $ret[$key] = strtotime($param);
@@ -45,16 +49,23 @@ class GetData
         case 'bloodtype' :
         case 'willvote' :
         case 'politicparty' :
-          $queryPortion[] = "an.{$key} = '{$param}'";
+          $ret[$key] = $param;          
+          foreach($param as $val) {
+            $subQueryPortion[] = "an.{$key} = " . $this->db->quote($val);
+          }
+          $queryPortion[] = '(' . implode(' OR ', $subQueryPortion) . ')';
           break;
         case 'candidate' :
         case 'location' :
         case 'religion' :
         case 'salary' :
         case 'stratif' :
-          $queryPortion[] = "an.id{$key} = {$param}";
+          $ret[$key] = $param;
+          foreach($param as $val) {
+            $subQueryPortion[] = "an.id{$key} = " . intval($val);
+          }
+          $queryPortion[] = '(' . implode(' OR ', $subQueryPortion) . ')';
           break;
-
       }
     }
     $this->filterQueryPortion = ' WHERE ' . implode(' AND ', $queryPortion);

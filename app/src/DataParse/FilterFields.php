@@ -30,7 +30,7 @@ class FilterFields
           return [
             'id'        => $item, 
             'value'     => $item,
-            'selected'  => isset($this->filterParams[$d['Field']]) &&  $this->filterParams[$d['Field']] === $item
+            'selected'  => $this->isOptionSelected($item, $d['Field'])
           ];
         }, $matches);
       }
@@ -52,7 +52,7 @@ class FilterFields
         $values[] = [
           'id'        => $d[$idFieldName], 
           'value'     => $d['name'],
-          'selected'  => isset($this->filterParams[$tableName]) &&  $this->filterParams[$tableName] === $d[$idFieldName]
+          'selected'  => $this->isOptionSelected($d[$idFieldName], $tableName)
         ];
       }
       $this->fields[$tableName] = $values;
@@ -60,6 +60,19 @@ class FilterFields
       print "Error!: " . $e->getMessage() . "<br/>";
       die();
     }
+  }
+
+  private function isOptionSelected($id, $tableName) {
+    if (!isset($this->filterParams[$tableName])) {
+      return false;
+    }
+    if (in_array('', $this->filterParams[$tableName])) {
+      return false;
+    }
+    if (!in_array($id, $this->filterParams[$tableName])) {
+      return false;
+    }
+    return true;
   }
 
   /**

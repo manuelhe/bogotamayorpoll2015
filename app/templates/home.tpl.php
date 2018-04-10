@@ -138,7 +138,7 @@
     <div class="filter-ages">
       <label for="ages">
         <span class="label">Edad</span>
-        <select id="ages" name="age">
+        <select id="ages" name="age[]" multiple="multiple" size="4">
           <option value="">Todas</option>
 <?php foreach($ageValues as $val):?>
           <option value="<?php echo $val['id'];?>"
@@ -156,7 +156,7 @@
     <div class="filter-gender">
       <label for="genders">
         <span class="label">Género</span>
-        <select id="genders" name="gender">
+        <select id="genders" name="gender[]" multiple="multiple" size="4">
           <option value="">Todos</option>
 <?php foreach($genderValues as $val):?>
           <option value="<?php echo $val['id'];?>"
@@ -174,7 +174,7 @@
     <div class="filter-bloodtype">
       <label for="bloodtypes">
         <span class="label">Tipo de Sangre</span>
-        <select id="bloodtypes" name="bloodtype">
+        <select id="bloodtypes" name="bloodtype[]" multiple="multiple" size="4">
           <option value="">Todos</option>
 <?php foreach($bloodtypeValues as $val):?>
           <option value="<?php echo $val['id'];?>"
@@ -192,7 +192,7 @@
     <div class="filter-willvote">
       <label for="willvotes">
         <span class="label">Votante Activo</span>
-        <select id="willvotes" name="willvote">
+        <select id="willvotes" name="willvote[]" multiple="multiple" size="4">
           <option value="">Todos</option>
 <?php foreach($willvoteValues as $val):?>
           <option value="<?php echo $val['id'];?>"
@@ -210,7 +210,7 @@
     <div class="filter-politicparty">
       <label for="politicpartys">
         <span class="label">Militante Político</span>
-        <select id="politicpartys" name="politicparty">
+        <select id="politicpartys" name="politicparty[]" multiple="multiple" size="4">
           <option value="">Todos</option>
 <?php foreach($politicpartyValues as $val):?>
           <option value="<?php echo $val['id'];?>"
@@ -228,7 +228,7 @@
     <div class="filter-candidate">
       <label for="candidates">
         <span class="label">Candidato</span>
-        <select id="candidates" name="candidate">
+        <select id="candidates" name="candidate[]" multiple="multiple" size="4">
           <option value="">Todos</option>
 <?php foreach($candidateValues as $val):?>
           <option value="<?php echo $val['id'];?>"
@@ -246,7 +246,7 @@
     <div class="filter-location">
       <label for="locations">
         <span class="label">Ubicación</span>
-        <select id="locations" name="location">
+        <select id="locations" name="location[]" multiple="multiple" size="4">
           <option value="">Todos</option>
 <?php foreach($locationValues as $val):?>
           <option value="<?php echo $val['id'];?>"
@@ -264,7 +264,7 @@
     <div class="filter-religion">
       <label for="religions">
         <span class="label">Credo</span>
-        <select id="religions" name="religion">
+        <select id="religions" name="religion[]" multiple="multiple" size="4">
           <option value="">Todos</option>
 <?php foreach($religionValues as $val):?>
           <option value="<?php echo $val['id'];?>"
@@ -282,7 +282,7 @@
     <div class="filter-salary">
       <label for="salarys">
         <span class="label">Ingresos Mensuales</span>
-        <select id="salarys" name="salary">
+        <select id="salarys" name="salary[]" multiple="multiple" size="4">
           <option value="">Todos</option>
 <?php foreach($salaryValues as $val):?>
           <option value="<?php echo $val['id'];?>"
@@ -300,7 +300,7 @@
     <div class="filter-stratif">
       <label for="stratifs">
         <span class="label">Estrato</span>
-        <select id="stratifs" name="stratif">
+        <select id="stratifs" name="stratif[]" multiple="multiple" size="4">
           <option value="">Todos</option>
 <?php foreach($stratifValues as $val):?>
           <option value="<?php echo $val['id'];?>"

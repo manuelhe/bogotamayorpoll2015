@@ -67,18 +67,24 @@ form input,form textarea,form select{
 form textarea{padding:5px 3px 3px 5px;}
 form select {
   background:#FFF;
-  -webkit-appearance:none;
-  -moz-appearance:none;
   text-indent:0.01px;
   text-overflow:'';
-  height:35px;
+  height:auto;
   line-height:25px;
+  width: 100%;
 }
 form textarea{height:100px;}
 form .button {background:#7575E2;border:none;padding:10px 25px 10px 25px;color:#FFF;box-shadow:1px 1px 5px #B6B6B6;border-radius:3px;text-shadow:1px 1px 1px #3F3F9E;cursor:pointer;}
 form .button:hover {background:#7A7ACF;}
 
-.filter-cta{border:1px solid #ccc; color: #888;border-radius:6px;cursor:pointer;padding:4px 8px;}
+.filter-cta{
+  border: 1px solid #ccc;
+  color: #5f5f5f;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 4px 8px;
+  background: #fffec7;
+}
 /* Menu */
 .header {
   position: fixed;
