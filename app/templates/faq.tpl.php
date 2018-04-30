@@ -47,9 +47,9 @@
 
   <dt>¿Por qué afirman ser una encuesta transparente?</dt>
   <dd>Nuestro argumento fundamental para realizar esta afirmación es que tanto los datos 
-  (<a href="http://morra.co/presidencia2018/data/data.csv" target="_blank">http://morra.co/presidencia2018/data/data.csv</a>) 
+  (<a href="http://morra.co/presidencia2018/data/data.csv" download="ResultadosVotoPresidenciaColombia2018.csv">Resultados Presidencia Colombia 2018</a>) 
   cómo el código fuente 
-  (<a href="https://github.com/manuelhe/bogotamayorpoll2015" target="_blank">https://github.com/manuelhe/bogotamayorpoll2015</a>) 
+  (<a href="https://github.com/manuelhe/bogotamayorpoll2015" target="_blank">Repositorio en Github</a>) 
   de este sitio web que presenta las respuestas se encuentran totalmente disponibles para el escrutinio, análisis, comentarios,
   reproches, quejas, suplicas, interpelaciones, diátrabas y cualquier otro tipo de dilucidaciones por parte del público
   en general. De esta manera aseguramos que las gráficas y resultados aquí contenidos son un fiel reflejo de los votos
@@ -113,8 +113,8 @@
   </dd>
 
   <dt>Bueno y ¿quién es Nyarlathotep y cómo es eso que consumirá las almas que contesten varias veces?</dt>
-  <dd>Aquí una referencia bastante clara sobre quién es Nyarlathotep: 
-  <a href="http://es.hplovecraft.wikia.com/wiki/Nyarlathotep" target="_blank">http://es.hplovecraft.wikia.com/wiki/Nyarlathotep</a>.
+  <dd>Aquí una referencia bastante clara sobre quién es 
+  <a href="http://es.hplovecraft.wikia.com/wiki/Nyarlathotep" target="_blank">Nyarlathotep</a>.
   Es nuestro dios externo favorito y es a lo único que podemos abogar para garantizar la "veracidad" en los
   resultados de este ejercicio.
   </dd>
@@ -127,8 +127,9 @@
   De ninguna manera queremos ayudar a los votantes, estamos convencidos que no somos de gran ayuda y hay algunos que ya 
   no tienen salvación.
   <br><br>
-  Sabemos de la magnitud y seriedad del tema en cuestión y compartimos la misma preocupación en la mismas proporciones
-  en las que Aida Merlano se afanó en respetar la democracia en las pasadas elecciones legislativas.
+  Sabemos de la magnitud y seriedad del tema en cuestión y compartimos la misma preocupación de manera proporcional en la que 
+   <a href="http://www.semana.com/nacion/articulo/fiscalia-compulsa-copias-para-investigar-a-aida-merlano/560281" target="_blank">Aida Merlano</a> 
+   se afanó en respetar la democracia en las pasadas elecciones legislativas.
   </dd>
 
   <dt>¿Quiénes son ustedes en realidad?</dt>

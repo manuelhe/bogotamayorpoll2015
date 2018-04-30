@@ -26,6 +26,13 @@ class GetData
     $ret = [];
     $queryPortion = [];
     foreach($params as $key => $param) {
+      if (is_array($param) && in_array('', $param)) {
+        continue;
+      }
+      if (is_string($param) && !trim($param)) {
+        continue;
+      }
+      $subQueryPortion = [];
       switch($key) {
         case 'date_init' :
           $ret[$key] = strtotime($param);
@@ -36,6 +43,28 @@ class GetData
           $date = strtotime($param) + 86399;
           $ret[$key] = $date;
           $queryPortion[] = "an.date <= '". date('Y-m-d H:i:s', $date) . "'";
+          break;
+        case 'age' :
+        case 'gender' :
+        case 'bloodtype' :
+        case 'willvote' :
+        case 'politicparty' :
+          $ret[$key] = $param;          
+          foreach($param as $val) {
+            $subQueryPortion[] = "an.{$key} = " . $this->db->quote($val);
+          }
+          $queryPortion[] = '(' . implode(' OR ', $subQueryPortion) . ')';
+          break;
+        case 'candidate' :
+        case 'location' :
+        case 'religion' :
+        case 'salary' :
+        case 'stratif' :
+          $ret[$key] = $param;
+          foreach($param as $val) {
+            $subQueryPortion[] = "an.id{$key} = " . intval($val);
+          }
+          $queryPortion[] = '(' . implode(' OR ', $subQueryPortion) . ')';
           break;
       }
     }

@@ -128,6 +128,35 @@
       filters.className = 'visible';
       showFilters.style.display = 'none';
     });
-  }
+	}
+	//Filters
+	let filtersForm = document.getElementById('filters');
+	if (filtersForm) {
+		Array.prototype.forEach.call(
+			document.querySelectorAll('.filtertags_remove'), (el) => { 
+				el.addEventListener('click', () => {
+					document.getElementById('loading_overlay').style.display = 'flex';
+					//Reset date
+					if (el.dataset.filter === 'date_range') {
+						document.getElementById('date_init').value = minDate;
+						document.getElementById('date_end').value = maxDate;
+						filtersForm.submit();
+					} else {
+						//Remove selected option for other filters
+						let filter = document.getElementById(el.dataset.filter + 's');
+						let i,
+								length = filter.length;
+						for (i = 0; i < length; i++){
+							if (filter[i].value === el.dataset.id) {
+								filter[i].removeAttribute('selected');
+								filter[i].selected = false;
+								filtersForm.submit();
+							}
+						}
+					}
+				});
+			}
+		);
+	}
 
 }(document));

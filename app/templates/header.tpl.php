@@ -7,7 +7,7 @@
 <?php if ($socialTags):?>
     <?php echo $socialTags;?>
 <?php endif;?>
-    <link rel="stylesheet" type="text/css" href="./assets/style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/style.css?v=<?php echo $config['appVersion'];?>">
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $config['gAnalyticsId'];?>"></script>
     <script>
