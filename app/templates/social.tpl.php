@@ -1,5 +1,6 @@
-<meta property="title" content="<?php echo $title;?>">
+<meta name="title" content="<?php echo $title;?>">
 <meta name="description" content="<?php echo $config['smDescription'];?>">
+<meta property="author" content="<?php echo $config['twitter']['creator'];?>">
 
 <meta property="og:title" content="<?php echo $title;?>">
 <meta property="og:type" content="article">
