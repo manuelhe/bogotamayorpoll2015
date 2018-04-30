@@ -1,5 +1,7 @@
+<meta name="title" content="<?php echo $title;?>">
+<meta name="description" content="<?php echo $config['smDescription'];?>">
+<meta property="author" content="<?php echo $config['twitter']['creator'];?>">
 
-<meta name="viewport" content="width=device-width">
 <meta property="og:title" content="<?php echo $title;?>">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="<?php echo $config['smSiteName'];?>">

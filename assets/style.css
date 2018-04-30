@@ -19,7 +19,7 @@ header{padding:1em 1em 0 1em;}
 .navigation ul{margin:2rem 0 0;padding:0;list-style:none;background:#fff}
 .navigation li{display:inline-block;cursor:pointer;padding:5px 10px;color:#375DD8;font-size:0.9em}
 .navigation li.active,.navigation li:hover{border-bottom:5px solid #FF8436}
-.navigation li.active{color:#789}
+.navigation li.active{color:#666}
 
 .tab_content{border-top:1px solid #d5d6d9;border-bottom:1px solid #d5d6d9;display:none;padding:1em 0;flex-flow:row wrap;align-content:space-between;justify-content:space-between;}
 .tab_content.active{display:flex}
@@ -40,7 +40,7 @@ footer{
   border-top:1px solid #ccc;
   background: #efefef;
 }
-footer a{color:#37a;text-decoration:none}
+footer a{color:#35b;text-decoration:none}
 p{font-size:0.9rem}
 .visible{display:block;}
 
@@ -152,7 +152,7 @@ li.filtertags_stratif {
   top: 0;
   background: rgba(255, 255, 255, 0.938);
   box-shadow: 0px 5px 17px -5px rgba(0, 0, 0, 0.219);
-  width: 100%;
+  width: 100vw;
   z-index:1;
 }
 .header_logo {
@@ -171,7 +171,7 @@ li.filtertags_stratif {
   width:100%;
 }
 .header_menu-activator {
-  color: #a6a9ab;
+  color: #888;
   cursor: pointer;
   font-size: 1.8em;
   line-height: 30px;
