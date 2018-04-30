@@ -330,7 +330,7 @@
     <li class="filtertags_<?php echo $item['filter'];?>">
       <span class="filtertags_label"><?php echo $item['label'];?></span>
       <span class="filtertags_remove" 
-            data-id="<?php echo $item['label'];?>"
+            data-id="<?php echo $item['id'];?>"
             data-filter="<?php echo $item['filter'];?>">×<span>
     </li>
 <?php endforeach;?>

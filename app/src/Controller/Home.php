@@ -9,7 +9,7 @@ namespace Controller;
 class Home extends \Mas\Controller
 {
     public function response() {
-        $params = isset($_POST) && $_POST ? $_POST : false;
+        $params = isset($_POST) && $_POST ? $_POST : [];
         $parsedData = new \DataParse\GetData($this->config, $params);
         $filterFields = new \DataParse\FilterFields($this->config, $params, $parsedData);
 
