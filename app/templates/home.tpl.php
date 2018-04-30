@@ -3,6 +3,9 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 
+  let minDate = '<?php echo $parsedData->getMinDate();?>';
+  let maxDate = '<?php echo $parsedData->getMaxDate();?>';
+
   var basicDataSets = {
     age: {
       title: "Rangos de edad en años",
@@ -320,7 +323,23 @@
     </label>
 
   </form>
+
+<?php if(count($selectedFilters)):?>
+  <ul class="filtertags">
+<?php foreach($selectedFilters as $item):?>
+    <li class="filtertags_<?php echo $item['filter'];?>">
+      <span class="filtertags_label"><?php echo $item['label'];?></span>
+      <span class="filtertags_remove" 
+            data-id="<?php echo $item['label'];?>"
+            data-filter="<?php echo $item['filter'];?>">×<span>
+    </li>
+<?php endforeach;?>
+  </ul>
 <?php endif;?>
+
+<?php endif;?>
+
+
 </header>
 
 
@@ -373,5 +392,7 @@
 <div class="intro">
   <div><?php echo $config['siteIntro'];?></div>
 </div>
+
+<div id="loading_overlay" class="loading-overlay"><span class="loading-overlay_star">❂</span></div>
 
 </div>

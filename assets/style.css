@@ -2,17 +2,18 @@
 html{font-size:100%;}
 body{font:16px/1.4 Helvetica, Arial,sans-serif;margin:0;padding:0;background:#fff}
 h1,h2,h3,h4{margin-top:0;line-height: 1em;}
+h1{font-size: 1.6rem;}
 .container{background:#fff;align-content:space-between;justify-content:space-between;}
-header{padding:1em;}
+header{padding:1em 1em 0 1em;}
 .info{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
-.total_votes{margin:1rem 0;text-align:right;color:#666}
+.total_votes{text-align:right;color:#666}
 .total_votes span{font-weight:bold;color:#35b}
 
-.last_update{margin:1rem 0;font-size:0.8em;text-align:right;color:#666}
+.last_update{margin-bottom:1rem;font-size:0.8em;text-align:right;color:#666}
 .last_update span{font-weight:bold;color:#35b}
 
 .navigation ul{margin:2rem 0 0;padding:0;list-style:none;background:#fff}
@@ -84,6 +85,66 @@ form .button:hover {background:#7A7ACF;}
   cursor: pointer;
   padding: 4px 8px;
   background: #fffec7;
+}
+/* Filter tags */
+.filtertags{
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+.filtertags li {
+  background: #efefef;
+  color: #789;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 1px 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+li.filtertags_age {
+  background: rgb(222, 222, 254);
+}
+li.filtertags_gender {
+  background: rgb(255, 151, 151);
+  color: #fff;
+}
+li.filtertags_bloodtype {
+  background: rgb(254, 246, 222);
+}
+li.filtertags_willvote {
+  background: rgb(254, 234, 222);
+}
+li.filtertags_politicparty {
+  background: rgb(236, 254, 222);
+}
+li.filtertags_candidate {
+  background: rgb(222, 254, 254);
+}
+li.filtertags_location {
+  background: rgb(222, 236, 254);
+}
+li.filtertags_religion {
+  background: rgb(254, 222, 249);
+}
+li.filtertags_salary {
+  background: rgb(222, 254, 242);
+}
+li.filtertags_stratif {
+  background: rgb(126, 216, 133);
+  color: #fff;
+}
+.filtertags li:not(:last-child){
+  margin-right: 0.5rem;
+}
+.filtertags_label {
+  font-size: 0.7rem;
+  margin-right: 4px;
+}
+.filtertags_remove {
+  color: #37a;
+  cursor: pointer;
+  vertical-align: middle;
 }
 /* Menu */
 .header {
@@ -167,6 +228,7 @@ form .button:hover {background:#7A7ACF;}
 .content-container{
   margin-top: 50px;
   font-family: Georgia, serif;
+  position: relative;
 }
 .textblock{
   margin: 0 2em;
@@ -182,7 +244,46 @@ form .button:hover {background:#7A7ACF;}
   font-size: 0.9rem;
   margin-bottom: 2em;
 }
+.loading-overlay {
+  align-items: center;
+  background:rgba(255, 255, 255, 0.7);
+  display: none;
+  height:100%;
+  justify-content: center;
+  left:0;
+  position:fixed;
+  top:0;
+  width:100%;
+}
+.loading-overlay_star {
+  animation: spin 2.5s linear infinite;
+  color: #888;
+  display: block;
+  font-family: serif;
+  font-size: 9em;
+  height: 90px;
+  line-height: 0.65em;
+  text-align: center;
+  transform: translateZ(0);
+  width: 90px;
+}
+@keyframes spin { 
+  0% { 
+    color: rgb(255, 163, 163);
+    transform: rotate(0deg);
+  }
+  50% {
+    color: rgb(255, 251, 0);
+    transform: rotate(180deg);
+  }
+  100% {
+    color: rgb(255, 163, 163);
+    transform: rotate(360deg); 
+  }
+}
 @media screen and (min-width:650px) {
+  .total_votes{margin:1rem 0;}
+  .last_update{margin:1rem 0;}
   .navigation li{font-size:1em}
   .tab_content{padding:1em}
   footer{padding:1rem;font-size:1em;}
@@ -202,6 +303,7 @@ form .button:hover {background:#7A7ACF;}
 }
 @media screen and (min-width:1280px) {
   body{background:#c8d3d9}
+  h1{font-size: 2rem;}
   .container{width:80rem;margin:0 auto;border-left:1px solid #ccc;border-left:1px solid #bbb;}
   header{padding:0;}
   .tab_content{padding:1em;border:1px solid #d5d6d9;}
@@ -250,6 +352,9 @@ form .button:hover {background:#7A7ACF;}
   .faq dd{
     line-height: 1.5rem;
     margin-bottom: 3em;
+  }
+  .filtertags{
+    margin-bottom: 1rem;
   }
 }
 
