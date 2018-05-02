@@ -129,8 +129,14 @@
       showFilters.style.display = 'none';
     });
 	}
-	//Filters
+	//Tracking
 	let filtersForm = document.getElementById('filters');
+	if (filtersForm && typeof ga !== 'undefined') {
+		filtersForm.addEventListener('submit', (event) => {
+			ga('send', 'event', 'FilterForm', 'submit');
+		});
+	}
+	//Filters
 	if (filtersForm) {
 		Array.prototype.forEach.call(
 			document.querySelectorAll('.filtertags_remove'), (el) => { 
@@ -140,6 +146,9 @@
 					if (el.dataset.filter === 'date_range') {
 						document.getElementById('date_init').value = minDate;
 						document.getElementById('date_end').value = maxDate;
+						if (typeof ga !== 'undefined') {
+							ga('send', 'event', 'FilterForm', 'removeFilter', 'date');
+						}
 						filtersForm.submit();
 					} else {
 						//Remove selected option for other filters
@@ -150,6 +159,9 @@
 							if (filter[i].value === el.dataset.id) {
 								filter[i].removeAttribute('selected');
 								filter[i].selected = false;
+								if (typeof ga !== 'undefined') {
+									ga('send', 'event', 'FilterForm', 'removeFilter', el.dataset.filter);
+								}
 								filtersForm.submit();
 							}
 						}
