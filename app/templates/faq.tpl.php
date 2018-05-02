@@ -47,7 +47,7 @@
 
   <dt>¿Por qué afirman ser una encuesta transparente?</dt>
   <dd>Nuestro argumento fundamental para realizar esta afirmación es que tanto los datos 
-  (<a href="http://morra.co/presidencia2018/data/data.csv" download="ResultadosVotoPresidenciaColombia2018.csv">Resultados Presidencia Colombia 2018</a>) 
+  (<a href="http://morra.co/presidencia2018/app/data/data.csv" download="ResultadosVotoPresidenciaColombia2018.csv">Resultados Presidencia Colombia 2018</a>) 
   cómo el código fuente 
   (<a href="https://github.com/manuelhe/bogotamayorpoll2015" target="_blank">Repositorio en Github</a>) 
   de este sitio web que presenta las respuestas se encuentran totalmente disponibles para el escrutinio, análisis, comentarios,
